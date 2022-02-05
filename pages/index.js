@@ -1,5 +1,5 @@
 import CreateUserForm from "../lib/CreateUserForm";
-import LoginForm from "../lib/loginForm";
+import LoginForm from "../lib/LoginForm";
 
 export default function Home() {
 	return (
