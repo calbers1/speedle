@@ -24,7 +24,7 @@ export default function Speedle() {
 	return (
 		<Container>
 			<Box>
-				Logged In As {userName}. Average Score: {averageScore}. High Score:
+				Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}.
 			</Box>
 			<Button
