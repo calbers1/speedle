@@ -15,7 +15,8 @@ export default function CreateUserForm() {
 		).json();
 		console.log("IS VALID: ", isValid);
 
-		if (isValid === 0) {
+		console.log("BODY: ", formData);
+		if (isValid === 0 && formData.pass === formData.pass2) {
 			await fetch("/api/createUser", {
 				body: JSON.stringify(formData),
 				headers: {
@@ -70,7 +71,13 @@ export default function CreateUserForm() {
 					} else alert("Failed to create user.");
 				});
 		} else {
-			alert("That username is already taken. Please try another user name.");
+			if (formData.pass !== formData.pass2) {
+				alert(
+					"Passwords do not match, and I'm too lazy to let you see them (for now)."
+				);
+			} else {
+				alert("That username is already taken. Please try another user name.");
+			}
 		}
 	};
 
