@@ -32,12 +32,12 @@ export default function Home() {
 					window.sessionStorage.setItem("userName", user.userName);
 					window.sessionStorage.setItem("highScore", user.highScore);
 					window.sessionStorage.setItem("averageScore", user.averageScore);
+					router.push(`speedle`);
 				}
 			} catch (err) {
 				console.log("ERROR: ", err);
 			}
-			//router.push(`speedle`);
-		} else alert("Fail.");
+		}
 	}, []);
 	return (
 		<div className="Main">

@@ -63,12 +63,6 @@ export default function CreateUserForm() {
 									user.averageScore
 								);
 							}
-
-							alert(
-								window.sessionStorage.getItem("userName"),
-								window.sessionStorage.getItem("highScore"),
-								window.sessionStorage.getItem("averageScore")
-							);
 						} catch (err) {
 							console.log("ERROR: ", err);
 						}
