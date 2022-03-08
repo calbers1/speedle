@@ -67,9 +67,9 @@ export default function CreateUserForm() {
 				<label>Username</label>
 				<input name="userName" type="text"></input>
 				<label>Password</label>
-				<input name="pass" type="text"></input>
+				<input name="pass" type="password"></input>
 				<label>Password Again</label>
-				<input name="pass2" type="text"></input>
+				<input name="pass2" type="password"></input>
 
 				<button type="submit">Register</button>
 			</form>

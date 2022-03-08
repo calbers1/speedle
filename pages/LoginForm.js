@@ -26,7 +26,7 @@ export default function LoginForm() {
 				<label>Username</label>
 				<input name="userName" type="text"></input>
 				<label>Password</label>
-				<input name="pass" type="text"></input>
+				<input name="pass" type="password"></input>
 
 				<button type="submit">Login</button>
 			</form>
