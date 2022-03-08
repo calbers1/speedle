@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import CreateUserForm from "./CreateUserForm";
 import LoginForm from "./LoginForm";
 import { useRouter } from "next/router";
+import { Container } from "@mui/material";
 
 export default function Home() {
 	const router = useRouter();
@@ -40,8 +41,10 @@ export default function Home() {
 	}, []);
 	return (
 		<div className="Main">
-			<LoginForm />
-			<CreateUserForm />
+			<Container>
+				<LoginForm />
+				<CreateUserForm />
+			</Container>
 		</div>
 	);
 }

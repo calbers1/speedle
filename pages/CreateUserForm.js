@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { Button, TextField, Grid, Box, Container } from "@mui/material";
 export default function CreateUserForm() {
 	const router = useRouter();
 	const handleSubmit = async (event) => {
@@ -10,6 +11,10 @@ export default function CreateUserForm() {
 
 		const params = new URLSearchParams(formData);
 
+		if (formData.userName.trim() === "" || formData.pass.trim() === "") {
+			alert("Enter a username and password.");
+			return;
+		}
 		const isValid = await (
 			await fetch("/api/isValidUsername?" + params)
 		).json();
@@ -84,16 +89,51 @@ export default function CreateUserForm() {
 	return (
 		<div>
 			<h1>Create User</h1>
-			<form onSubmit={handleSubmit}>
-				<label>Username</label>
-				<input name="userName" type="text"></input>
-				<label>Password</label>
-				<input name="pass" type="password"></input>
-				<label>Password Again</label>
-				<input name="pass2" type="password"></input>
-
-				<button type="submit">Register</button>
-			</form>
+			<Box
+				component="form"
+				noValidate
+				autoComplete="off"
+				onSubmit={handleSubmit}
+			>
+				<div>
+					<Grid container spacing={4}>
+						<Grid item xs={12} md={12}>
+							<TextField
+								fullWidth
+								variant="outlined"
+								name="userName"
+								label="Username"
+								size="small"
+							/>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<TextField
+								variant="outlined"
+								name="pass"
+								label="Password"
+								type="password"
+								size="small"
+								fullWidth
+							/>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<TextField
+								variant="outlined"
+								name="pass2"
+								label="Re-enter Password"
+								type="password"
+								size="small"
+								fullWidth
+							/>
+						</Grid>
+						<Grid item xs={12} md={12}>
+							<Button variant="contained" type="submit" sx={{ width: "100%" }}>
+								Register
+							</Button>
+						</Grid>
+					</Grid>
+				</div>
+			</Box>
 		</div>
 	);
 }
