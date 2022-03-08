@@ -35,7 +35,7 @@ export default function Home() {
 			} catch (err) {
 				console.log("ERROR: ", err);
 			}
-			router.push(`speedle`);
+			//router.push(`speedle`);
 		} else alert("Fail.");
 	}, []);
 	return (

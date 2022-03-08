@@ -8,56 +8,70 @@ export default function CreateUserForm() {
 
 		const formData = Object.fromEntries(form.entries());
 
-		const res = await fetch("/api/createUser", {
-			body: JSON.stringify(formData),
-			headers: {
-				"content-type": "multipart/form-data",
-			},
-			method: "POST",
-		})
-			.then(async function (response) {
-				return response.text();
+		const params = new URLSearchParams(formData);
+
+		const isValid = await (
+			await fetch("/api/isValidUsername?" + params)
+		).json();
+		console.log("IS VALID: ", isValid);
+
+		if (isValid === 0) {
+			await fetch("/api/createUser", {
+				body: JSON.stringify(formData),
+				headers: {
+					"content-type": "multipart/form-data",
+				},
+				method: "POST",
 			})
-			.then(async function (data) {
-				window.localStorage.setItem("userString", data);
+				.then(async function (response) {
+					return response.text();
+				})
+				.then(async function (data) {
+					window.localStorage.setItem("userString", data);
 
-				if (data) {
-					const q = {
-						userID: data,
-					};
+					if (data) {
+						const q = {
+							userID: data,
+						};
 
-					const params = new URLSearchParams(q);
+						const params = new URLSearchParams(q);
 
-					try {
-						const res = await (
-							await fetch(
-								"/api/BypassLogIn?" + params
-								// {
-								// 	headers: {
-								// 		"Content-Type": "application/json",
-								// 		Accept: "application/json",
-								// 	},
-								// }
-							)
-						).json();
-						const user = res.user;
-						if (!res.error) {
-							window.sessionStorage.setItem("userName", user.userName);
-							window.sessionStorage.setItem("highScore", user.highScore);
-							window.sessionStorage.setItem("averageScore", user.averageScore);
+						try {
+							const res = await (
+								await fetch(
+									"/api/BypassLogIn?" + params
+									// {
+									// 	headers: {
+									// 		"Content-Type": "application/json",
+									// 		Accept: "application/json",
+									// 	},
+									// }
+								)
+							).json();
+							const user = res.user;
+							if (!res.error) {
+								window.sessionStorage.setItem("userName", user.userName);
+								window.sessionStorage.setItem("highScore", user.highScore);
+								window.sessionStorage.setItem(
+									"averageScore",
+									user.averageScore
+								);
+							}
+
+							alert(
+								window.sessionStorage.getItem("userName"),
+								window.sessionStorage.getItem("highScore"),
+								window.sessionStorage.getItem("averageScore")
+							);
+						} catch (err) {
+							console.log("ERROR: ", err);
 						}
-
-						alert(
-							window.sessionStorage.getItem("userName"),
-							window.sessionStorage.getItem("highScore"),
-							window.sessionStorage.getItem("averageScore")
-						);
-					} catch (err) {
-						console.log("ERROR: ", err);
-					}
-					router.push(`speedle`);
-				} else alert("Fail.");
-			});
+						router.push(`speedle`);
+					} else alert("Failed to create user.");
+				});
+		} else {
+			alert("That username is already taken. Please try another user name.");
+		}
 	};
 
 	return (
