@@ -27,10 +27,10 @@ export default function Tutorial() {
 						<p className="Tutorial-text">
 							This is a game about being smarter and faster than everyone else.
 							The gameplay is similar to a popular (read: sellout) word game,
-							but your score is calculated by how many tries and how much time
+							but definitely WAYYYY different, because I added a timer. Your
+							score is calculated by how many tries are left and how much time
 							you take to get it right. Then, your score goes on a global
-							leaderboard, for everyone to see. This ain&#39;t your granny&#39;s
-							word game. <h3>Welcome to Speedle.</h3>
+							leaderboard, for everyone to see. <h3>Welcome to Not-Wordle.</h3>
 						</p>
 					</Grid>
 					<Grid className="grid" item xs={12}>
