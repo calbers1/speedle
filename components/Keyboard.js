@@ -13,7 +13,7 @@ export default function Keyboard(props) {
 
 	return (
 		<div>
-			<h1>{word}</h1>
+			<h1 className="h1-center">{word}</h1>
 			<div className="keyboard">
 				<button className="key" value={"Q"} onClick={click}>
 					Q
