@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import Tutorial from "../components/Tutorial";
+import Keyboard from "../components/Keyboard";
 
 export default function Speedle() {
 	const [userName, setUserName] = useState("");
@@ -25,7 +26,7 @@ export default function Speedle() {
 	};
 	return (
 		<Container>
-			<Box>
+			{/* <Box>
 				Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}. {tutorial}
 			</Box>
@@ -35,7 +36,8 @@ export default function Speedle() {
 				sx={{ width: "100%", marginTop: "1em" }}
 			>
 				Log Out
-			</Button>
+			</Button> */}
+			<Keyboard></Keyboard>
 		</Container>
 	);
 }
