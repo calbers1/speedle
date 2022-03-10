@@ -29,8 +29,8 @@ export default function Tutorial() {
 							The gameplay is similar to a popular (read: sellout) word game,
 							but your score is calculated by how many tries and how much time
 							you take to get it right. Then, your score goes on a global
-							leaderboard, for everyone to see. This ain't your granny's word
-							game. <h3>Welcome to Speedle.</h3>
+							leaderboard, for everyone to see. This ain&#39;t your granny&#39;s
+							word game. <h3>Welcome to Speedle.</h3>
 						</p>
 					</Grid>
 					<Grid className="grid" item xs={12}>
