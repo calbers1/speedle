@@ -45,10 +45,10 @@ a {
 	margin: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: #231a46;
+	background-color: #231a46 !important;
 	display: flex;
 	align-items: center;
-	color: white;
+	color: white !important;
 	border-radius: 20px;
 }
 
