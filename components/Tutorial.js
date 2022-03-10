@@ -32,6 +32,17 @@ export default function Tutorial() {
 							you take to get it right. Then, your score goes on a global
 							leaderboard, for everyone to see. <h3>Welcome to Not-Wordle.</h3>
 						</p>
+						<p className="Tutorial-text">
+							The aim of the game is to guess the word. You have 6 tries and 60
+							seconds. After each guess, the you can see which letters you got
+							in the correct spot (green), which letters are correct but in the
+							wrong spot (yellow), and which letters are not in the word at all
+							(black). USE THESE HINTS. Once you finish (or run out of time)
+							your score is then calculated: <br />
+							(guesses remaining * seconds remaining) * (1 + (current streak /
+							10)), and thrown on the leaderboard next to your name.{" "}
+							<h3>Good luck!</h3>
+						</p>
 					</Grid>
 					<Grid className="grid" item xs={12}>
 						<Button variant="contained" onClick={closeTutorial}>
