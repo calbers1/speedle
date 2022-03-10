@@ -17,9 +17,9 @@ export default function LoginForm() {
 		const res = await (await fetch("/api/login?" + params)).json();
 		if (!res.error) {
 			window.localStorage.setItem("userString", res.entityId);
-			window.sessionStorage.setItem("userName", res.userName);
-			window.sessionStorage.setItem("highScore", res.highScore);
-			window.sessionStorage.setItem("averageScore", res.averageScore);
+			window.localStorage.setItem("userName", res.userName);
+			window.localStorage.setItem("highScore", res.highScore);
+			window.localStorage.setItem("averageScore", res.averageScore);
 			router.push("speedle");
 		} else {
 			alert("Incorrect username or password.");
@@ -40,6 +40,7 @@ export default function LoginForm() {
 					<Grid container spacing={4}>
 						<Grid item xs={12} md={6}>
 							<TextField
+								className="lightTextField"
 								variant="outlined"
 								name="userName"
 								label="Username"
@@ -49,6 +50,7 @@ export default function LoginForm() {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<TextField
+								className="lightTextField"
 								variant="outlined"
 								name="pass"
 								label="Password"

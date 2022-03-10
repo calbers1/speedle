@@ -56,12 +56,10 @@ export default function CreateUserForm() {
 							).json();
 							const user = res.user;
 							if (!res.error) {
-								window.sessionStorage.setItem("userName", user.userName);
-								window.sessionStorage.setItem("highScore", user.highScore);
-								window.sessionStorage.setItem(
-									"averageScore",
-									user.averageScore
-								);
+								window.localStorage.setItem("userName", user.userName);
+								window.localStorage.setItem("highScore", user.highScore);
+								window.localStorage.setItem("averageScore", user.averageScore);
+								window.sessionStorage.setItem("showTutorial", 1);
 							}
 						} catch (err) {
 							console.log("ERROR: ", err);
@@ -93,6 +91,7 @@ export default function CreateUserForm() {
 					<Grid container spacing={4}>
 						<Grid item xs={12} md={12}>
 							<TextField
+								className="lightTextField"
 								fullWidth
 								variant="outlined"
 								name="userName"
@@ -102,6 +101,7 @@ export default function CreateUserForm() {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<TextField
+								className="lightTextField"
 								variant="outlined"
 								name="pass"
 								label="Password"
@@ -112,6 +112,7 @@ export default function CreateUserForm() {
 						</Grid>
 						<Grid item xs={12} md={6}>
 							<TextField
+								className="lightTextField"
 								variant="outlined"
 								name="pass2"
 								label="Re-enter Password"
