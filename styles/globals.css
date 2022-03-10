@@ -15,7 +15,7 @@ body {
 	color: white;
 	transition: 0.5s;
 	flex-direction: column;
-	font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
+	font-size: clamp(0.5rem, 2.5vmin, 2.5rem);
 }
 
 a {
@@ -101,7 +101,7 @@ a {
 		display: grid;
 		grid-template-columns: repeat(20, minmax(auto, 1.5em));
 		grid-auto-rows: 4em;
-		gap: 0.25em;
+		gap: 0.5em;
 		justify-content: center;
 	}
 }

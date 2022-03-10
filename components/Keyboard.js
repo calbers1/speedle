@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-export default function Keyboard() {
-	const [word, setWord] = useState("");
+export default function Keyboard(props) {
+	const [word, setWord] = useState(props.children);
 	function click(e) {
 		setWord(word + e.target.value);
 	}

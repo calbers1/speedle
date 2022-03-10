@@ -25,7 +25,7 @@ export default function Speedle() {
 		router.push("/");
 	};
 	return (
-		<Container>
+		<Container sx={{ width: "100vw" }}>
 			{/* <Box>
 				Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}. {tutorial}
@@ -37,7 +37,7 @@ export default function Speedle() {
 			>
 				Log Out
 			</Button> */}
-			<Keyboard></Keyboard>
+			<Keyboard>ENTER STUFF HERE</Keyboard>
 		</Container>
 	);
 }
