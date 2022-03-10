@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Roboto+Mono:wght@100;400;500;700&display=swap");
 
+/* GENERAL: */
 html,
 body {
 	padding: 1em;
@@ -25,6 +26,41 @@ a {
 * {
 	box-sizing: border-box;
 }
+
+.hidden {
+	transition: 0.5s;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.grid {
+	padding: 0 !important;
+}
+
+::before,
+::after {
+	border-color: white !important;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+/* INPUTS: */
+
+.lightTextField {
+	background-color: #ffffff2f;
+	border-radius: 4px;
+}
+.lightTextField input,
+.lightTextField label {
+	color: white !important;
+}
+
+/* TUTORIAL: */
 
 .Tutorial {
 	/* position: fixed;
@@ -54,39 +90,35 @@ a {
 	color: white !important;
 	border-radius: 20px !important;
 }
-
-.hidden {
-	transition: 0.5s;
-	opacity: 0;
-	visibility: hidden;
-}
-
 .Tutorial-text {
 	margin: 0px 10% 0px 10%;
 }
 
-.grid {
-	padding: 0 !important;
+/* KEYBOARD: */
+
+@media only screen and (max-width: 799px) {
+	.keyboard {
+		display: grid;
+		grid-template-columns: repeat(20, minmax(auto, 1.5em));
+		grid-auto-rows: 4em;
+		gap: 0.25em;
+		justify-content: center;
+	}
 }
 
-.lightTextField {
-	background-color: #ffffff2f;
-	border-radius: 4px;
-}
-.lightTextField input,
-.lightTextField label {
-	color: white !important;
-}
-::before,
-::after {
-	border-color: white !important;
-}
+@media only screen and (min-width: 800px) {
+	.key:active {
+		transition: 0.15s;
+		transform: translate(0px, 0px);
+	}
 
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-	padding: 0;
+	.keyboard {
+		display: grid;
+		grid-template-columns: repeat(20, minmax(auto, 1.5em));
+		grid-auto-rows: 4em;
+		gap: 0.25em;
+		justify-content: center;
+	}
 }
 
 .key {
@@ -104,27 +136,20 @@ a {
 	fill: white;
 	user-select: none;
 }
-.key:hover {
+
+.key > svg {
+	width: 2em;
+	height: 2em;
+}
+
+.key:hover,
+.key:focus {
 	transition: 0.25s;
 	transform: translate(0px, -2px);
 	cursor: pointer;
 	background-color: #5d5783a8;
 }
-@media only screen and (min-width: 800px) {
-	.key:active {
-		transition: 0.15s;
-		transform: translate(0px, 0px);
-	}
-}
 
 .big-key {
 	grid-column: span 3;
-}
-
-.keyboard {
-	display: grid;
-	grid-template-columns: repeat(20, minmax(auto, 1.5em));
-	grid-auto-rows: 4em;
-	gap: 0.25em;
-	justify-content: center;
 }
