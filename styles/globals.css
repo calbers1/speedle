@@ -41,6 +41,7 @@ body {
 	transition: 0.5s;
 	flex-direction: column;
 	font-size: clamp(0.5rem, 2.5vmin, 2.5rem);
+	overflow: hidden;
 }
 
 a {
