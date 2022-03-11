@@ -39,7 +39,9 @@ export default function Speedle() {
 		sethighScore(window.localStorage.getItem("highScore"));
 		setaverageScore(window.localStorage.getItem("averageScore"));
 		setTutorial(
-			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
+			//Set this back before go live
+			//window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
+			<Tutorial />
 		);
 
 		//set up word of the day
