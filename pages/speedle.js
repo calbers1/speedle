@@ -4,6 +4,7 @@ import { Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import Tutorial from "../components/Tutorial";
 import Keyboard from "../components/Keyboard";
+import Gameboard from "../components/Gameboard";
 
 export default function Speedle() {
 	const [userName, setUserName] = useState("");
@@ -24,6 +25,16 @@ export default function Speedle() {
 		window.localStorage.removeItem("userString");
 		router.push("/");
 	};
+
+	let cellArray = [
+		["A", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "a", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+	];
+
 	return (
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
 			{/* <Box>
@@ -37,6 +48,7 @@ export default function Speedle() {
 			>
 				Log Out
 			</Button> */}
+			<Gameboard cellArray={cellArray}></Gameboard>
 			<Keyboard>ENTER STUFF HERE</Keyboard>
 		</Container>
 	);

@@ -1,5 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Roboto+Mono:wght@100;400;500;700&display=swap");
 
+/* VARIABLES: */
+:root {
+	--cell-background-color: hsl(
+		var(--hue, 248),
+		var(--saturation, 20%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
+	);
+	--wrong-color: hsl(
+		var(--hue, 5),
+		var(--saturation, 80%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
+	);
+	--wrong-location-color: hsl(
+		var(--hue, 35),
+		var(--saturation, 84%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
+	);
+	--right-color: hsl(
+		var(--hue, 142),
+		var(--saturation, 76%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
+	);
+}
+
 /* GENERAL: */
 html,
 body {
@@ -121,7 +145,7 @@ a {
 	.keyboard {
 		display: grid;
 		grid-template-columns: repeat(20, minmax(auto, 1.5em));
-		grid-auto-rows: 4em;
+		grid-auto-rows: 3em;
 		gap: 0.25em;
 		justify-content: center;
 	}
@@ -137,11 +161,8 @@ a {
 	justify-content: center;
 	align-items: center;
 	border-radius: 0.25em;
-	background-color: hsl(
-		var(--hue, 248),
-		var(--saturation, 20%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
-	);
+
+	background-color: var(--cell-background-color);
 	color: white;
 	fill: white;
 	user-select: none;
@@ -173,11 +194,7 @@ a {
 	--saturation: 80%;
 	--lightness: 50%; */
 	color: black;
-	--wrong-color: hsl(
-		var(--hue, 5),
-		var(--saturation, 80%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
-	);
+
 	background-color: var(--wrong-color);
 }
 .wrong-location {
@@ -185,11 +202,7 @@ a {
 	--saturation: 90%;
 	--lightness: 50%; */
 	color: black;
-	--wrong-location-color: hsl(
-		var(--hue, 35),
-		var(--saturation, 84%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
-	);
+
 	background-color: var(--wrong-location-color);
 }
 .right {
@@ -203,4 +216,38 @@ a {
 		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
 	);
 	background-color: var(--right-color);
+}
+
+/* GAMEBOARD: */
+
+.Gameboard {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	flex-grow: 1;
+	grid-template-columns: repeat(5, 3em);
+	grid-template-rows: repeat(6, 3em);
+	gap: 0.25em;
+	margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 799px) {
+	.Gameboard {
+		grid-template-columns: repeat(5, 5em);
+		grid-template-rows: repeat(6, 5em);
+	}
+}
+
+.Gameboard-cell {
+	border-radius: 0.15em;
+	border: 2px solid var(--cell-background-color);
+	font-size: 2em;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: white;
+	fill: white;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
