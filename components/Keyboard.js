@@ -26,6 +26,8 @@ export default function Keyboard(props) {
 		if (props.x <= 5 && props.y === 5) {
 			props.setX(props.x + 1);
 			props.setY(0);
+			props.checkLetters();
+			props.checkWin();
 		}
 	}
 

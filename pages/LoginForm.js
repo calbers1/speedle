@@ -20,6 +20,8 @@ export default function LoginForm() {
 			window.localStorage.setItem("userName", res.userName);
 			window.localStorage.setItem("highScore", res.highScore);
 			window.localStorage.setItem("averageScore", res.averageScore);
+			window.localStorage.setItem("streak", res.streak);
+			window.localStorage.setItem("lastLogin", res.lastLogin);
 			router.push("speedle");
 		} else {
 			alert("Incorrect username or password.");

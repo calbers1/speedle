@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Button, Container } from "@mui/material";
+import { Alert, Button, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import Tutorial from "../components/Tutorial";
 import Keyboard from "../components/Keyboard";
@@ -21,15 +21,63 @@ export default function Speedle() {
 		["", "", "", "", ""],
 		["", "", "", "", ""],
 	]);
+	const [classArray, setClassArray] = useState([
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+	]);
+	const [WOTD, setWOTD] = useState("");
+	const [winMessage, setWinMessage] = useState(
+		<span className="Tutorial-text">BLURTLE</span>
+	);
 	const router = useRouter();
-	useEffect(() => {
+	useEffect(async () => {
 		setUserName(window.localStorage.getItem("userName"));
 		sethighScore(window.localStorage.getItem("highScore"));
 		setaverageScore(window.localStorage.getItem("averageScore"));
 		setTutorial(
 			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
 		);
+
+		//set up word of the day
+		const res = await (await fetch("/api/getWOTD")).json();
+		setWOTD(res.word);
 	}, []);
+
+	const checkLetters = () => {
+		const guess = cellArray[x];
+		const answer = WOTD.split("");
+		const newClassArray = classArray;
+		console.log("GUESS: ", guess, " ANSWER: ", answer);
+
+		for (let i = 0; i <= 5; i++) {
+			if (answer.includes(guess[i])) {
+				newClassArray[x][i] = "wrong-location";
+			} else {
+				newClassArray[x][i] = "wrong";
+			}
+		}
+
+		for (let i = 0; i <= 5; i++) {
+			if (answer[i] === guess[i]) {
+				newClassArray[x][i] = "right";
+			}
+		}
+
+		setClassArray(newClassArray);
+	};
+
+	const checkWin = () => {
+		const guess = cellArray[x].join("");
+		if (WOTD === guess) {
+			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
+		} else {
+			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
+		}
+	};
 
 	const logOut = () => {
 		window.localStorage.removeItem("userString");
@@ -40,24 +88,37 @@ export default function Speedle() {
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
 			{/* <Box>
 				Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
-				{highScore}. {tutorial}
-			</Box>
-			<Button
-				variant="contained"
-				onClick={logOut}
-				sx={{ width: "100%", marginTop: "1em" }}
+				{highScore}. Word Of The Day: {WOTD} {tutorial}
+			</Box> */}
+			<Container
+				sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
 			>
-				Log Out
-			</Button> */}
-			<Gameboard cellArray={cellArray}></Gameboard>
+				{winMessage}
+			</Container>
+			<Gameboard cellArray={cellArray} classArray={classArray}></Gameboard>
 			<Keyboard
 				cellArray={cellArray}
+				setCellArray={setCellArray}
+				classArray={classArray}
+				setClassArray={setClassArray}
 				x={x}
 				setX={setX}
 				y={y}
 				setY={setY}
-				setCellArray={setCellArray}
+				checkWin={checkWin}
+				checkLetters={checkLetters}
 			></Keyboard>
+			<Button
+				variant="contained"
+				onClick={logOut}
+				sx={{
+					width: "100%",
+					height: "5vmax",
+					marginTop: "1em",
+				}}
+			>
+				Log Out
+			</Button>
 		</Container>
 	);
 }

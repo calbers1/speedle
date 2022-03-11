@@ -16,22 +16,14 @@ export default function Home() {
 			const params = new URLSearchParams(q);
 
 			try {
-				const res = await (
-					await fetch(
-						"/api/BypassLogIn?" + params
-						// {
-						// 	headers: {
-						// 		"Content-Type": "application/json",
-						// 		Accept: "application/json",
-						// 	},
-						// }
-					)
-				).json();
+				const res = await (await fetch("/api/BypassLogIn?" + params)).json();
 				const user = res.user;
 				if (!res.error) {
-					window.sessionStorage.setItem("userName", user.userName);
-					window.sessionStorage.setItem("highScore", user.highScore);
-					window.sessionStorage.setItem("averageScore", user.averageScore);
+					window.localStorage.setItem("userName", user.userName);
+					window.localStorage.setItem("highScore", user.highScore);
+					window.localStorage.setItem("averageScore", user.averageScore);
+					window.localStorage.setItem("streak", res.streak);
+					window.localStorage.setItem("lastLogin", res.lastLogin);
 					router.push(`speedle`);
 				}
 			} catch (err) {

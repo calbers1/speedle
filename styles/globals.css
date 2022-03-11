@@ -22,6 +22,7 @@
 		var(--saturation, 76%),
 		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
 	);
+	--background-color: hsl(252, 46%, 19%);
 }
 
 /* GENERAL: */
@@ -35,7 +36,7 @@ body {
 	justify-content: center;
 	width: 100vw;
 	height: 100vh;
-	background-color: #231a46;
+	background-color: var(--background-color);
 	color: white;
 	transition: 0.5s;
 	flex-direction: column;
@@ -113,14 +114,29 @@ a {
 	margin: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: hsl(252, 46%, 19%) !important;
+	background-color: var(--background-color) !important;
 	display: flex;
 	align-items: center;
 	color: white !important;
 	border-radius: 20px !important;
 }
 .Tutorial-text {
+	font-weight: light;
 	margin: 0px 10% 0px 10%;
+	font-size: 2rem;
+	text-align: center;
+}
+
+.Tutorial-correct {
+	color: var(--right-color);
+}
+
+.Tutorial-wrong-spot {
+	color: var(--wrong-location-color);
+}
+
+.Tutorial-wrong {
+	color: var(--wrong-color);
 }
 
 /* KEYBOARD: */
@@ -161,11 +177,12 @@ a {
 	justify-content: center;
 	align-items: center;
 	border-radius: 0.25em;
-
+	transition: 0.25s;
 	background-color: var(--cell-background-color);
 	color: white;
 	fill: white;
 	user-select: none;
+	animation: appear 0.5s ease-in-out;
 }
 
 .key > svg {
@@ -193,28 +210,24 @@ a {
 	/* --hue: 0;
 	--saturation: 80%;
 	--lightness: 50%; */
-	color: black;
-
+	transition: 0.5s;
+	color: black !important;
 	background-color: var(--wrong-color);
 }
 .wrong-location {
 	/* --hue: 40;
 	--saturation: 90%;
 	--lightness: 50%; */
-	color: black;
-
+	transition: 0.5s;
+	color: black !important;
 	background-color: var(--wrong-location-color);
 }
 .right {
 	/* --hue: 115;
 	--saturation: 90%;
 	--lightness: 35%; */
-	color: black;
-	--right-color: hsl(
-		var(--hue, 142),
-		var(--saturation, 76%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
-	);
+	transition: 0.5s;
+	color: black !important;
 	background-color: var(--right-color);
 }
 
@@ -250,4 +263,11 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	animation: appear 0.5s ease-in-out;
+}
+
+@keyframes appear {
+	0% {
+		transform: scale(0);
+	}
 }

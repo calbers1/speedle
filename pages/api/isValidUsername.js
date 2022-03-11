@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 	}
 	const isValid = await isValidUsername(req.query);
 	console.log("is valid: ", isValid);
-	if (isValid !== 1) {
+	if (isValid === 1) {
 		console.log("user is not valid");
 	}
 	res.status(200).json(isValid);

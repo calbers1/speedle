@@ -15,58 +15,46 @@ export default function CreateUserForm() {
 			alert("Enter a username and password.");
 			return;
 		}
+
 		const isValid = await (
 			await fetch("/api/isValidUsername?" + params)
 		).json();
-		console.log("IS VALID: ", isValid);
 
-		console.log("BODY: ", formData);
 		if (isValid === 0 && formData.pass === formData.pass2) {
-			await fetch("/api/createUser", {
+			const res = await fetch("/api/createUser", {
 				body: JSON.stringify(formData),
 				headers: {
 					"content-type": "multipart/form-data",
 				},
 				method: "POST",
-			})
-				.then(async function (response) {
-					return response.text();
-				})
-				.then(async function (data) {
-					window.localStorage.setItem("userString", data);
+			});
+			const userString = await res.text();
+			window.localStorage.setItem("userString", userString);
 
-					if (data) {
-						const q = {
-							userID: data,
-						};
+			if (userString) {
+				const q = {
+					userID: userString,
+				};
 
-						const params = new URLSearchParams(q);
+				const params = new URLSearchParams(q);
 
-						try {
-							const res = await (
-								await fetch(
-									"/api/BypassLogIn?" + params
-									// {
-									// 	headers: {
-									// 		"Content-Type": "application/json",
-									// 		Accept: "application/json",
-									// 	},
-									// }
-								)
-							).json();
-							const user = res.user;
-							if (!res.error) {
-								window.localStorage.setItem("userName", user.userName);
-								window.localStorage.setItem("highScore", user.highScore);
-								window.localStorage.setItem("averageScore", user.averageScore);
-								window.sessionStorage.setItem("showTutorial", 1);
-							}
-						} catch (err) {
-							console.log("ERROR: ", err);
-						}
-						router.push(`speedle`);
-					} else alert("Failed to create user.");
-				});
+				try {
+					const res = await (await fetch("/api/BypassLogIn?" + params)).json();
+					const user = res.user;
+					if (!res.error) {
+						window.localStorage.setItem("userName", user.userName);
+						window.localStorage.setItem("highScore", user.highScore);
+						window.localStorage.setItem("averageScore", user.averageScore);
+						window.sessionStorage.setItem("showTutorial", 1);
+						window.localStorage.setItem("streak", res.streak);
+						window.localStorage.setItem("lastLogin", res.lastLogin);
+					}
+				} catch (err) {
+					console.log("ERROR: ", err);
+				}
+
+				router.push(`speedle`);
+			} else alert("Failed to create user.");
 		} else {
 			if (formData.pass !== formData.pass2) {
 				alert(
