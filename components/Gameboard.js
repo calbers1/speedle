@@ -5,8 +5,12 @@ export default function Gameboard(props) {
 
 	return (
 		<div className="Gameboard">
-			{cells.map((x) =>
-				x.map((y) => <div className="Gameboard-cell">{y}</div>)
+			{cells.map((x, Xindex) =>
+				x.map((y, Yindex) => (
+					<div key={`${Xindex}${Yindex}`} className="Gameboard-cell">
+						{y}
+					</div>
+				))
 			)}
 		</div>
 	);

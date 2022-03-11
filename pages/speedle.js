@@ -11,6 +11,16 @@ export default function Speedle() {
 	const [highScore, sethighScore] = useState("");
 	const [averageScore, setaverageScore] = useState("");
 	const [tutorial, setTutorial] = useState("");
+	const [x, setX] = useState(0);
+	const [y, setY] = useState(0);
+	const [cellArray, setCellArray] = useState([
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+		["", "", "", "", ""],
+	]);
 	const router = useRouter();
 	useEffect(() => {
 		setUserName(window.localStorage.getItem("userName"));
@@ -26,15 +36,6 @@ export default function Speedle() {
 		router.push("/");
 	};
 
-	let cellArray = [
-		["A", "", "", "", ""],
-		["", "", "", "", ""],
-		["", "", "", "a", ""],
-		["", "", "", "", ""],
-		["", "", "", "", ""],
-		["", "", "", "", ""],
-	];
-
 	return (
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
 			{/* <Box>
@@ -49,7 +50,14 @@ export default function Speedle() {
 				Log Out
 			</Button> */}
 			<Gameboard cellArray={cellArray}></Gameboard>
-			<Keyboard>ENTER STUFF HERE</Keyboard>
+			<Keyboard
+				cellArray={cellArray}
+				x={x}
+				setX={setX}
+				y={y}
+				setY={setY}
+				setCellArray={setCellArray}
+			></Keyboard>
 		</Container>
 	);
 }

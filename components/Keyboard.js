@@ -2,36 +2,35 @@ import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 export default function Keyboard(props) {
-	const [word, setWord] = useState(props.children);
 	function click(e) {
-		setWord(word + e.target.value);
-		//e.target.classList.add("wrong");
-		//e.target.classList.add("wrong-location");
-		e.target.classList.add("right");
-		//e.target.style.backgroundColor = "pink";
-		//e.target.style.color = "black";
+		if (props.y < 5) {
+			let newCellArray = props.cellArray;
+			newCellArray[props.x][props.y] = e.target.value;
+			props.setCellArray(newCellArray);
+			props.setY(props.y + 1);
+		}
 	}
 
 	function del() {
-		setWord(word.slice(0, -1));
+		if (props.y >= 0) {
+			let newCellArray = props.cellArray;
+			newCellArray[props.x][props.y - 1] = "";
+			props.setCellArray(newCellArray);
+			if (props.y > 0) {
+				props.setY(props.y - 1);
+			}
+		}
 	}
 
 	function enter() {
-		setWord("Nope.");
-		setTimeout(() => {
-			setWord(" ");
-		}, 1000);
+		if (props.x <= 5 && props.y === 5) {
+			props.setX(props.x + 1);
+			props.setY(0);
+		}
 	}
-
-	useEffect(() => {
-		setTimeout(() => {
-			setWord("");
-		}, 1500);
-	}, []);
 
 	return (
 		<div>
-			<h1 className="h1-center">{word}</h1>
 			<div className="keyboard">
 				<button className="key" value={"Q"} onClick={click}>
 					Q
