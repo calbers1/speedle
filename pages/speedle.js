@@ -86,10 +86,11 @@ export default function Speedle() {
 
 	return (
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
-			{/* <Box>
-				Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
-				{highScore}. Word Of The Day: {WOTD} {tutorial}
-			</Box> */}
+			<Box>
+				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
+				{highScore}. Word Of The Day: {WOTD}  */}
+				{tutorial}
+			</Box>
 			<Container
 				sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
 			>
