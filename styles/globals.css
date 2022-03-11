@@ -51,6 +51,7 @@ a {
 
 .h1-center {
 	text-align: center;
+	user-select: none;
 }
 
 /* INPUTS: */
@@ -88,7 +89,7 @@ a {
 	margin: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: #231a46 !important;
+	background-color: hsl(252, 46%, 19%) !important;
 	display: flex;
 	align-items: center;
 	color: white !important;
@@ -108,14 +109,15 @@ a {
 		gap: 0.5em;
 		justify-content: center;
 	}
+	.key:focus {
+		transition: 0.25s;
+		transform: translate(0px, -2px);
+		cursor: pointer;
+		--lightness: 60%;
+	}
 }
 
 @media only screen and (min-width: 800px) {
-	.key:active {
-		transition: 0.15s;
-		transform: translate(0px, 0px);
-	}
-
 	.keyboard {
 		display: grid;
 		grid-template-columns: repeat(20, minmax(auto, 1.5em));
@@ -135,7 +137,11 @@ a {
 	justify-content: center;
 	align-items: center;
 	border-radius: 0.25em;
-	background-color: #5d578357;
+	background-color: hsl(
+		var(--hue, 248),
+		var(--saturation, 20%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
+	);
 	color: white;
 	fill: white;
 	user-select: none;
@@ -146,14 +152,55 @@ a {
 	height: 2em;
 }
 
-.key:hover,
-.key:focus {
+.big-key {
+	grid-column: span 3;
+}
+
+.key:hover {
 	transition: 0.25s;
 	transform: translate(0px, -2px);
 	cursor: pointer;
-	background-color: #5d5783a8;
+	--lightness-offset: 15%;
 }
 
-.big-key {
-	grid-column: span 3;
+.key:active {
+	transition: 0.15s;
+	transform: translate(0px, 0px);
+}
+
+.wrong {
+	/* --hue: 0;
+	--saturation: 80%;
+	--lightness: 50%; */
+	color: black;
+	--wrong-color: hsl(
+		var(--hue, 5),
+		var(--saturation, 80%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
+	);
+	background-color: var(--wrong-color);
+}
+.wrong-location {
+	/* --hue: 40;
+	--saturation: 90%;
+	--lightness: 50%; */
+	color: black;
+	--wrong-location-color: hsl(
+		var(--hue, 35),
+		var(--saturation, 84%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
+	);
+	background-color: var(--wrong-location-color);
+}
+.right {
+	/* --hue: 115;
+	--saturation: 90%;
+	--lightness: 35%; */
+	color: black;
+	--right-color: hsl(
+		var(--hue, 142),
+		var(--saturation, 76%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
+	);
+	background-color: var(--right-color);
 }

@@ -5,11 +5,29 @@ export default function Keyboard(props) {
 	const [word, setWord] = useState(props.children);
 	function click(e) {
 		setWord(word + e.target.value);
+		//e.target.classList.add("wrong");
+		//e.target.classList.add("wrong-location");
+		e.target.classList.add("right");
+		//e.target.style.backgroundColor = "pink";
+		//e.target.style.color = "black";
 	}
 
 	function del() {
 		setWord(word.slice(0, -1));
 	}
+
+	function enter() {
+		setWord("Nope.");
+		setTimeout(() => {
+			setWord(" ");
+		}, 1000);
+	}
+
+	useEffect(() => {
+		setTimeout(() => {
+			setWord("");
+		}, 1500);
+	}, []);
 
 	return (
 		<div>
@@ -74,7 +92,7 @@ export default function Keyboard(props) {
 					L
 				</button>
 				<div className="space"></div>
-				<button className="key big-key" value={"enter"} onClick={click}>
+				<button className="key big-key" value={"enter"} onClick={enter}>
 					ENTER
 				</button>
 				<button className="key" value={"Z"} onClick={click}>
