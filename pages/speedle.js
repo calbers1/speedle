@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import Tutorial from "../components/Tutorial";
 import Keyboard from "../components/Keyboard";
 import Gameboard from "../components/Gameboard";
+import WinPage from "../components/WinPage";
 
 export default function Speedle() {
 	const [userName, setUserName] = useState("");
@@ -29,10 +30,12 @@ export default function Speedle() {
 		["", "", "", "", ""],
 		["", "", "", "", ""],
 	]);
+	const [date, setDate] = useState();
 	const [WOTD, setWOTD] = useState("");
 	const [winMessage, setWinMessage] = useState(
 		<span className="Tutorial-text">BLURTLE</span>
 	);
+	const [winPage, setWinPage] = useState(<></>);
 	const router = useRouter();
 	useEffect(async () => {
 		setUserName(window.localStorage.getItem("userName"));
@@ -46,8 +49,17 @@ export default function Speedle() {
 
 		//set up word of the day
 		const res = await (await fetch("/api/getWOTD")).json();
+		setDate(res.date);
 		setWOTD(res.word);
 	}, []);
+	//checks if you've won already today
+	useEffect(() => {
+		if (window.localStorage.getItem("hasWon") === date) {
+			console.log("hasWon: ", window.localStorage.getItem("hasWon"));
+			console.log("Date: ", date);
+			setWinPage(<WinPage />);
+		}
+	}, [date]);
 
 	const checkLetters = () => {
 		const guess = cellArray[x];
@@ -82,6 +94,8 @@ export default function Speedle() {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
 			setX(10);
 			setY(10);
+			window.localStorage.setItem("hasWon", date);
+			setWinPage(<WinPage />);
 		} else {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
@@ -97,6 +111,7 @@ export default function Speedle() {
 			<Box>
 				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}. Word Of The Day: {WOTD}  */}
+				{winPage}
 				{tutorial}
 			</Box>
 			<Container

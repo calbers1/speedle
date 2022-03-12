@@ -295,3 +295,9 @@ a {
 		transform: scale(0);
 	}
 }
+
+/* WIN PAGE */
+
+.Win {
+	opacity: 90%;
+}
