@@ -51,20 +51,25 @@ export default function Speedle() {
 
 	const checkLetters = () => {
 		const guess = cellArray[x];
-		const answer = WOTD.split("");
+		let answer = WOTD.split("");
 		const newClassArray = classArray;
 
-		for (let i = 0; i <= 5; i++) {
-			if (answer.includes(guess[i])) {
-				newClassArray[x][i] = "wrong-location";
-			} else {
-				newClassArray[x][i] = "wrong";
+		//loop to find right letters. If it's right, it's replaced in the array by " ".
+		for (let i = 0; i < 5; i++) {
+			if (answer[i] === guess[i]) {
+				newClassArray[x][i] += " right";
+				answer[i] = " "; //this is so that the index stays on track.
 			}
 		}
 
-		for (let i = 0; i <= 5; i++) {
-			if (answer[i] === guess[i]) {
-				newClassArray[x][i] = "right";
+		//loop through array without right answers.
+		for (let i = 0; i < 5; i++) {
+			const index = answer.indexOf(guess[i]);
+			if (index > -1) {
+				newClassArray[x][i] += " wrong-location";
+				answer.splice(index, 1);
+			} else {
+				newClassArray[x][i] += " wrong";
 			}
 		}
 

@@ -210,7 +210,7 @@ a {
 	transition: 0.25s;
 	transform: translate(0px, -2px);
 	cursor: pointer;
-	--lightness-offset: 15%;
+	--lightness-offset: 20%;
 }
 
 .key:active {
@@ -239,7 +239,7 @@ a {
 	background-color: hsl(
 		var(--hue, 35),
 		var(--saturation, 84%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
+		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
 	);
 }
 .right {

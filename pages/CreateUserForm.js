@@ -21,40 +21,48 @@ export default function CreateUserForm() {
 		).json();
 
 		if (isValid === 0 && formData.pass === formData.pass2) {
-			const res = await fetch("/api/createUser", {
-				body: JSON.stringify(formData),
-				headers: {
-					"content-type": "multipart/form-data",
-				},
-				method: "POST",
-			});
-			const userString = await res.text();
-			window.localStorage.setItem("userString", userString);
+			if (formData.pass.trim().length > 8) {
+				const res = await fetch("/api/createUser", {
+					body: JSON.stringify(formData),
+					headers: {
+						"content-type": "multipart/form-data",
+					},
+					method: "POST",
+				});
+				const userString = await res.text();
+				window.localStorage.setItem("userString", userString);
 
-			if (userString) {
-				const q = {
-					userID: userString,
-				};
+				if (userString) {
+					const q = {
+						userID: userString,
+					};
 
-				const params = new URLSearchParams(q);
+					const params = new URLSearchParams(q);
 
-				try {
-					const res = await (await fetch("/api/BypassLogIn?" + params)).json();
-					const user = res.user;
-					if (!res.error) {
-						window.localStorage.setItem("userName", user.userName);
-						window.localStorage.setItem("highScore", user.highScore);
-						window.localStorage.setItem("averageScore", user.averageScore);
-						window.sessionStorage.setItem("showTutorial", 1);
-						window.localStorage.setItem("streak", res.streak);
-						window.localStorage.setItem("lastLogin", res.lastLogin);
+					try {
+						const res = await (
+							await fetch("/api/BypassLogIn?" + params)
+						).json();
+						const user = res.user;
+						if (!res.error) {
+							window.localStorage.setItem("userName", user.userName);
+							window.localStorage.setItem("highScore", user.highScore);
+							window.localStorage.setItem("averageScore", user.averageScore);
+							window.sessionStorage.setItem("showTutorial", 1);
+							window.localStorage.setItem("streak", res.streak);
+							window.localStorage.setItem("lastLogin", res.lastLogin);
+						}
+					} catch (err) {
+						console.error("ERROR: ", err);
 					}
-				} catch (err) {
-					console.error("ERROR: ", err);
-				}
 
-				router.push(`speedle`);
-			} else alert("Failed to create user.");
+					router.push(`speedle`);
+				} else alert("Failed to create user.");
+			} else {
+				alert(
+					"Do you want your account stolen? Because that's how you get your account stolen. Password must be at least 8 characters."
+				);
+			}
 		} else {
 			if (formData.pass !== formData.pass2) {
 				alert(
