@@ -36,8 +36,8 @@ export default function Tutorial() {
 							is calculated and thrown onto the leaderboard next to your name
 							for everyone to see. You get a bonus multiplier for having a
 							streak, so check back every day or you&apos;ll lose it!{" "}
-							<h3>Good luck!</h3>
 						</p>
+						<h1>Good luck!</h1>
 					</Grid>
 					<Grid className="grid" item xs={12}>
 						<Button variant="contained" onClick={closeTutorial}>

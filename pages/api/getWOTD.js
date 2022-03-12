@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 	await updateWordOfTheDay();
 	const word = await getWordOfTheDay();
 	if (word === "") {
-		console.log(oops);
+		console.error(oops);
 		return 0;
 	}
 	res.status(200).json(word);

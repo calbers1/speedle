@@ -2,21 +2,44 @@ import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 export default function Keyboard(props) {
+	const [elementArray, setElementArray] = useState([]);
+
+	function checkKeyboardLetters() {
+		const answer = props.WOTD.split("");
+		for (let i = 0; i < 5; i++) {
+			const element = elementArray[i];
+			const letter = element.value;
+			if (answer.includes(letter)) {
+				if (answer[i] === letter) {
+					element.className += " right";
+				} else {
+					element.className += " wrong-location";
+				}
+			} else {
+				element.className += " wrong";
+			}
+		}
+	}
+
 	function click(e) {
 		if (props.y < 5) {
 			let newCellArray = props.cellArray;
 			newCellArray[props.x][props.y] = e.target.value;
 			props.setCellArray(newCellArray);
 			props.setY(props.y + 1);
+			setElementArray([...elementArray, e.target]);
 		}
 	}
 
 	function del() {
-		if (props.y >= 0) {
+		if (props.y >= 0 && props.y < 6) {
 			let newCellArray = props.cellArray;
 			newCellArray[props.x][props.y - 1] = "";
 			props.setCellArray(newCellArray);
 			if (props.y > 0) {
+				let newElementArray = elementArray;
+				newElementArray.pop();
+				setElementArray([...newElementArray]);
 				props.setY(props.y - 1);
 			}
 		}
@@ -27,9 +50,13 @@ export default function Keyboard(props) {
 			props.setX(props.x + 1);
 			props.setY(0);
 			props.checkLetters();
+			checkKeyboardLetters();
+			setElementArray([]);
 			props.checkWin();
 		}
 	}
+
+	useEffect(() => {}, [elementArray]);
 
 	return (
 		<div>

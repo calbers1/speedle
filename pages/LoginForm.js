@@ -25,7 +25,7 @@ export default function LoginForm() {
 			router.push("speedle");
 		} else {
 			alert("Incorrect username or password.");
-			console.log(res.error);
+			console.error(res.error);
 		}
 	};
 

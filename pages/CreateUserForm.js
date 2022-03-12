@@ -50,7 +50,7 @@ export default function CreateUserForm() {
 						window.localStorage.setItem("lastLogin", res.lastLogin);
 					}
 				} catch (err) {
-					console.log("ERROR: ", err);
+					console.error("ERROR: ", err);
 				}
 
 				router.push(`speedle`);

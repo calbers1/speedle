@@ -186,7 +186,11 @@ a {
 	align-items: center;
 	border-radius: 0.25em;
 	transition: 0.25s;
-	background-color: var(--cell-background-color);
+	background-color: hsl(
+		var(--hue, 248),
+		var(--saturation, 20%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
+	);
 	color: white;
 	fill: white;
 	user-select: none;
@@ -220,7 +224,11 @@ a {
 	--lightness: 50%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: var(--wrong-color);
+	background-color: hsl(
+		var(--hue, 5),
+		var(--saturation, 80%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
+	);
 }
 .wrong-location {
 	/* --hue: 40;
@@ -228,7 +236,11 @@ a {
 	--lightness: 50%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: var(--wrong-location-color);
+	background-color: hsl(
+		var(--hue, 35),
+		var(--saturation, 84%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
+	);
 }
 .right {
 	/* --hue: 115;
@@ -236,7 +248,11 @@ a {
 	--lightness: 35%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: var(--right-color);
+	background-color: hsl(
+		var(--hue, 142),
+		var(--saturation, 76%),
+		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
+	);
 }
 
 /* GAMEBOARD: */

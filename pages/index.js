@@ -27,7 +27,7 @@ export default function Home() {
 					router.push(`speedle`);
 				}
 			} catch (err) {
-				console.log("ERROR: ", err);
+				console.error("ERROR: ", err);
 			}
 		}
 	}, []);

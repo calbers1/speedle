@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 	}
 	const user = await LogIn(req.query);
 	if (user === "") {
-		console.log(oops);
+		console.error(oops);
 		return 0;
 	}
 	res.status(200).json(user);

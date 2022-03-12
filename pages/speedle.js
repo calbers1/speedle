@@ -53,7 +53,6 @@ export default function Speedle() {
 		const guess = cellArray[x];
 		const answer = WOTD.split("");
 		const newClassArray = classArray;
-		console.log("GUESS: ", guess, " ANSWER: ", answer);
 
 		for (let i = 0; i <= 5; i++) {
 			if (answer.includes(guess[i])) {
@@ -76,6 +75,8 @@ export default function Speedle() {
 		const guess = cellArray[x].join("");
 		if (WOTD === guess) {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
+			setX(10);
+			setY(10);
 		} else {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
@@ -110,6 +111,7 @@ export default function Speedle() {
 				setY={setY}
 				checkWin={checkWin}
 				checkLetters={checkLetters}
+				WOTD={WOTD}
 			></Keyboard>
 			<Button
 				variant="contained"
