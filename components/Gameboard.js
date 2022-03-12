@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 
 export default function Gameboard(props) {
-	const [cells, setCells] = useState(props.cellArray);
-	const [classes, setClasses] = useState(props.classArray);
+	const [cells, setCells] = useState([[]]);
+	const [classes, setClasses] = useState([[]]);
+
+	useState(() => {
+		setCells(props.cellArray);
+		setClasses(props.classArray);
+	}, []);
 
 	return (
 		<div className="Gameboard">
@@ -12,7 +17,7 @@ export default function Gameboard(props) {
 						key={`${Xindex}${Yindex}`}
 						className={`Gameboard-cell ${classes[Xindex][Yindex]}`}
 					>
-						{y}
+						{!props.hasWon ? y : ""}
 					</div>
 				))
 			)}

@@ -36,15 +36,14 @@ export default function Speedle() {
 		<span className="Tutorial-text">BLURTLE</span>
 	);
 	const [winPage, setWinPage] = useState(<></>);
+	const [hasWon, setHasWon] = useState(false);
 	const router = useRouter();
 	useEffect(async () => {
 		setUserName(window.localStorage.getItem("userName"));
 		sethighScore(window.localStorage.getItem("highScore"));
 		setaverageScore(window.localStorage.getItem("averageScore"));
 		setTutorial(
-			//Set this back before go live
-			//window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
-			<Tutorial />
+			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
 		);
 
 		//set up word of the day
@@ -92,10 +91,20 @@ export default function Speedle() {
 		const guess = cellArray[x].join("");
 		if (WOTD === guess) {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
-			setX(10);
-			setY(10);
 			window.localStorage.setItem("hasWon", date);
-			setWinPage(<WinPage />);
+			setHasWon(true);
+			let winningCellArray = [
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+			];
+			setCellArray(winningCellArray);
+			setTimeout(() => {
+				setWinPage(<WinPage tries={x} />);
+			}, 250);
 		} else {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
@@ -108,31 +117,6 @@ export default function Speedle() {
 
 	return (
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
-			<Box>
-				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
-				{highScore}. Word Of The Day: {WOTD}  */}
-				{winPage}
-				{tutorial}
-			</Box>
-			<Container
-				sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-			>
-				{winMessage}
-			</Container>
-			<Gameboard cellArray={cellArray} classArray={classArray}></Gameboard>
-			<Keyboard
-				cellArray={cellArray}
-				setCellArray={setCellArray}
-				classArray={classArray}
-				setClassArray={setClassArray}
-				x={x}
-				setX={setX}
-				y={y}
-				setY={setY}
-				checkWin={checkWin}
-				checkLetters={checkLetters}
-				WOTD={WOTD}
-			></Keyboard>
 			<Button
 				variant="contained"
 				onClick={logOut}
@@ -144,6 +128,39 @@ export default function Speedle() {
 			>
 				Log Out
 			</Button>
+			<Box>
+				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
+				{highScore}. Word Of The Day: {WOTD}  */}
+				{winPage}
+				{tutorial}
+			</Box>
+			<Container
+				sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+			>
+				{winMessage}
+			</Container>
+			<Gameboard
+				cellArray={cellArray}
+				classArray={classArray}
+				hasWon={hasWon}
+			></Gameboard>
+			{!hasWon ? (
+				<Keyboard
+					cellArray={cellArray}
+					setCellArray={setCellArray}
+					classArray={classArray}
+					setClassArray={setClassArray}
+					x={x}
+					setX={setX}
+					y={y}
+					setY={setY}
+					checkWin={checkWin}
+					checkLetters={checkLetters}
+					WOTD={WOTD}
+				></Keyboard>
+			) : (
+				<span />
+			)}
 		</Container>
 	);
 }
