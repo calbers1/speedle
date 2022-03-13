@@ -30,7 +30,7 @@ export default function Tutorial() {
 							Green letters are in the correct spot.
 						</h1>
 						<h1 className="Tutorial-wrong-spot">
-							Orange letters are in incorrect spot.
+							Orange letters are in an incorrect spot.
 						</h1>
 						<h1 className="Tutorial-wrong">
 							Red letters are not in the word at all.
