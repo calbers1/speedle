@@ -21,7 +21,7 @@ export default function CreateUserForm() {
 		).json();
 
 		if (isValid === 0 && formData.pass === formData.pass2) {
-			if (formData.pass.trim().length > 8) {
+			if (formData.pass.trim().length >= 8) {
 				const res = await fetch("/api/createUser", {
 					body: JSON.stringify(formData),
 					headers: {

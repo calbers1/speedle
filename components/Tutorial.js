@@ -20,28 +20,26 @@ export default function Tutorial() {
 						<h1>First time?</h1>
 					</Grid>
 					<Grid className="grid" item xs={12}>
+						<p className="Tutorial-text">The goal is to guess the word.</p>
+
 						<p className="Tutorial-text">
-							The goal is to guess the word. Here&apos;s the catch: You have 6
-							tries and 60 seconds, so you&apos;ll need to blurt it out fast.
-							After each guess, you&apos;ll see which letters you got in the{" "}
-							<span className="Tutorial-correct"> correct spot</span>, which
-							letters are
-							<span className="Tutorial-wrong-spot">
-								{" "}
-								correct but in the wrong spot
-							</span>
-							, and which letters are
-							<span className="Tutorial-wrong"> not in the word at all</span>.
-							USE THESE HINTS. Once you finish (or run out of time), your score
-							is calculated and thrown onto the leaderboard next to your name
-							for everyone to see. You get a bonus multiplier for having a
-							streak, so check back every day or you&apos;ll lose it!{" "}
+							After each guess, the letters will change colors.
 						</p>
+						<br />
+						<h1 className="Tutorial-correct">
+							Green letters are in the correct spot.
+						</h1>
+						<h1 className="Tutorial-wrong-spot">
+							Orange letters are in incorrect spot.
+						</h1>
+						<h1 className="Tutorial-wrong">
+							Red letters are not in the word at all.
+						</h1>
 						<h1>Good luck!</h1>
 					</Grid>
 					<Grid className="grid" item xs={12}>
 						<Button variant="contained" onClick={closeTutorial}>
-							Esketit!
+							Ready!
 						</Button>
 					</Grid>
 				</Grid>

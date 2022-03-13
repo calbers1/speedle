@@ -200,6 +200,7 @@ export default function Keyboard(props) {
 				key={transition ? transition.name : ""}
 			>
 				<SnackbarContent
+					className="snackbar"
 					style={{
 						backgroundColor: "hsl(5, 80%, 63%)",
 						textAlign: "center",
@@ -207,6 +208,7 @@ export default function Keyboard(props) {
 						alignItems: "center",
 						justifyContent: "center",
 						color: "black",
+						fontWeight: "bold",
 					}}
 					message={<span id="client-snackbar">Invalid Word!</span>}
 				/>
