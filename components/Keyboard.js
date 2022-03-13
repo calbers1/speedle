@@ -46,7 +46,7 @@ export default function Keyboard(props) {
 
 	function click(e) {
 		if (props.y < 5) {
-			let newCellArray = props.cellArray;
+			let newCellArray = [...props.cellArray];
 			newCellArray[props.x][props.y] = e.target.value;
 			props.setCellArray(newCellArray);
 			props.setY(props.y + 1);
@@ -71,7 +71,6 @@ export default function Keyboard(props) {
 	function enter() {
 		if (props.x <= 5 && props.y === 5) {
 			const guess = props.cellArray[props.x].join("");
-			console.log(validWords[0]);
 			if (validWords.includes(guess.toLowerCase())) {
 				props.setX(props.x + 1);
 				props.setY(0);

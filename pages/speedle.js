@@ -39,6 +39,7 @@ export default function Speedle() {
 	const [hasWon, setHasWon] = useState(false);
 
 	const router = useRouter();
+	//initial setup
 	useEffect(async () => {
 		setUserName(window.localStorage.getItem("userName"));
 		sethighScore(window.localStorage.getItem("highScore"));
@@ -47,20 +48,45 @@ export default function Speedle() {
 			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
 		);
 
+		//check if the grid has values
+		let oldCells = window.localStorage.getItem("cellArray");
+		let oldClasses = window.localStorage.getItem("classArray");
+		let oldX = window.localStorage.getItem("oldX");
+		window.localStorage.removeItem("oldX");
+		if (oldCells !== null && oldClasses !== null) {
+			oldCells = JSON.parse(oldCells);
+			oldClasses = JSON.parse(oldClasses);
+			oldX = JSON.parse(oldX);
+			if (oldCells.length > 1 && oldClasses.length > 1) {
+				setCellArray(oldCells);
+				setClassArray(oldClasses);
+				setX(oldX);
+			}
+		}
+
 		//set up word of the day
 		const word = await (await fetch("/api/getWOTD")).json();
 		setDate(word.date);
 		setWOTD(word.word);
 	}, []);
-	//checks if you've won already today
+	//set the localstorage arrays (for reload consistency)
+	useEffect(() => {
+		//if the user has entered a guess
+		if (x > 0) {
+			window.localStorage.setItem("classArray", JSON.stringify(classArray));
+			window.localStorage.setItem("cellArray", JSON.stringify(cellArray));
+			window.localStorage.setItem("oldX", x);
+		}
+		window.set;
+	}, [x]);
+	//check if you've won already today
 	useEffect(() => {
 		if (window.localStorage.getItem("hasWon") === date) {
-			console.log("hasWon: ", window.localStorage.getItem("hasWon"));
-			console.log("Date: ", date);
 			setWinPage(<WinPage />);
+			setHasWon(true);
 		}
 	}, [date]);
-
+	//check which letters are correct
 	const checkLetters = () => {
 		const guess = cellArray[x];
 		let answer = WOTD.split("");
@@ -87,12 +113,11 @@ export default function Speedle() {
 
 		setClassArray(newClassArray);
 	};
-
+	//check if the user has won
 	const checkWin = () => {
 		const guess = cellArray[x].join("");
 		if (WOTD === guess) {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
-			window.localStorage.setItem("hasWon", date);
 			setHasWon(true);
 			let winningCellArray = [
 				["", "", "", "", ""],
@@ -102,6 +127,7 @@ export default function Speedle() {
 				["", "", "", "", ""],
 				["", "", "", "", ""],
 			];
+			window.localStorage.setItem("hasWon", date);
 			setCellArray(winningCellArray);
 			setTimeout(() => {
 				setWinPage(<WinPage tries={x} />);
@@ -110,7 +136,7 @@ export default function Speedle() {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
 	};
-
+	//log out
 	const logOut = () => {
 		window.localStorage.removeItem("userString");
 		router.push("/");
