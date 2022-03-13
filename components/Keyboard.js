@@ -1,8 +1,31 @@
-import { Container } from "@mui/material";
+import {
+	Button,
+	Container,
+	IconButton,
+	Snackbar,
+	CloseIcon,
+	SnackbarContent,
+	Slide,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 export default function Keyboard(props) {
 	const [elementArray, setElementArray] = useState([]);
+	const [validWords, setValidWords] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [transition, setTransition] = useState(undefined);
+
+	const handleClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	const transitionDown = (props) => {
+		return <Slide {...props} direction="down" />;
+	};
 
 	function checkKeyboardLetters() {
 		const answer = props.WOTD.split("");
@@ -47,16 +70,27 @@ export default function Keyboard(props) {
 
 	function enter() {
 		if (props.x <= 5 && props.y === 5) {
-			props.setX(props.x + 1);
-			props.setY(0);
-			props.checkLetters();
-			checkKeyboardLetters();
-			setElementArray([]);
-			props.checkWin();
+			const guess = props.cellArray[props.x].join("");
+			console.log(validWords[0]);
+			if (validWords.includes(guess.toLowerCase())) {
+				props.setX(props.x + 1);
+				props.setY(0);
+				props.checkLetters();
+				checkKeyboardLetters();
+				setElementArray([]);
+				props.checkWin();
+			} else {
+				setTransition(() => transitionDown);
+				setOpen(true);
+			}
 		}
 	}
 
-	useEffect(() => {}, [elementArray]);
+	useEffect(async () => {
+		//set up valid words
+		const words = await (await fetch("/api/getValidWords")).json();
+		setValidWords(words);
+	}, []);
 
 	return (
 		<div>
@@ -155,6 +189,29 @@ export default function Keyboard(props) {
 					</svg>
 				</button>
 			</div>
+			<Snackbar
+				open={open}
+				autoHideDuration={1500}
+				onClose={handleClose}
+				message="Invalid Word!"
+				severity="error"
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				TransitionComponent={transition}
+				transitionDuration={{ enter: 300, exit: 300 }}
+				key={transition ? transition.name : ""}
+			>
+				<SnackbarContent
+					style={{
+						backgroundColor: "hsl(5, 80%, 63%)",
+						textAlign: "center",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						color: "black",
+					}}
+					message={<span id="client-snackbar">Invalid Word!</span>}
+				/>
+			</Snackbar>
 		</div>
 	);
 }

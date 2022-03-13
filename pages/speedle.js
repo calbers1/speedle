@@ -37,6 +37,7 @@ export default function Speedle() {
 	);
 	const [winPage, setWinPage] = useState(<></>);
 	const [hasWon, setHasWon] = useState(false);
+
 	const router = useRouter();
 	useEffect(async () => {
 		setUserName(window.localStorage.getItem("userName"));
@@ -47,9 +48,9 @@ export default function Speedle() {
 		);
 
 		//set up word of the day
-		const res = await (await fetch("/api/getWOTD")).json();
-		setDate(res.date);
-		setWOTD(res.word);
+		const word = await (await fetch("/api/getWOTD")).json();
+		setDate(word.date);
+		setWOTD(word.word);
 	}, []);
 	//checks if you've won already today
 	useEffect(() => {
@@ -117,17 +118,6 @@ export default function Speedle() {
 
 	return (
 		<Container sx={{ width: "100vw", padding: ".5rem" }}>
-			<Button
-				variant="contained"
-				onClick={logOut}
-				sx={{
-					width: "100%",
-					height: "5vmax",
-					marginTop: "1em",
-				}}
-			>
-				Log Out
-			</Button>
 			<Box>
 				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}. Word Of The Day: {WOTD}  */}
