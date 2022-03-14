@@ -83,7 +83,6 @@ export default function Blurtle() {
 		//check if the grid has values
 
 		if (lastLogin === date) {
-			alert("you made it");
 			let oldCells = window.localStorage.getItem("cellArray");
 			let oldClasses = window.localStorage.getItem("classArray");
 			let oldX = window.localStorage.getItem("oldX");
