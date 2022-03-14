@@ -56,7 +56,7 @@ export default function CreateUserForm() {
 						console.error("ERROR: ", err);
 					}
 
-					router.push(`speedle`);
+					router.push(`blurtle`);
 				} else alert("Failed to create user.");
 			} else {
 				alert(

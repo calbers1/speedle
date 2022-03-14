@@ -24,7 +24,7 @@ export default function Home() {
 					window.localStorage.setItem("averageScore", user.averageScore);
 					window.localStorage.setItem("streak", res.streak);
 					window.localStorage.setItem("lastLogin", res.lastLogin);
-					router.push(`speedle`);
+					router.push(`blurtle`);
 				}
 			} catch (err) {
 				console.error("ERROR: ", err);

@@ -8,7 +8,7 @@ import Gameboard from "../components/Gameboard";
 import WinPage from "../components/WinPage";
 import LosePage from "../components/LosePage";
 
-export default function Speedle() {
+export default function blurtle() {
 	const [userName, setUserName] = useState("");
 	const [highScore, sethighScore] = useState("");
 	const [averageScore, setaverageScore] = useState("");
@@ -49,22 +49,6 @@ export default function Speedle() {
 			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
 		);
 
-		//check if the grid has values
-		let oldCells = window.localStorage.getItem("cellArray");
-		let oldClasses = window.localStorage.getItem("classArray");
-		let oldX = window.localStorage.getItem("oldX");
-		window.localStorage.removeItem("oldX");
-		if (oldCells !== null && oldClasses !== null) {
-			oldCells = JSON.parse(oldCells);
-			oldClasses = JSON.parse(oldClasses);
-			oldX = JSON.parse(oldX);
-			if (oldCells.length > 1 && oldClasses.length > 1) {
-				setCellArray(oldCells);
-				setClassArray(oldClasses);
-				setX(oldX);
-			}
-		}
-
 		//set up word of the day
 		const word = await (await fetch("/api/getWOTD")).json();
 		setDate(word.date);
@@ -80,22 +64,45 @@ export default function Speedle() {
 		}
 		window.set;
 	}, [x]);
-	//check if you've won already today
+	//check if you've already played today
 	useEffect(() => {
 		if (window.localStorage.getItem("gameOver") === date) {
-			setEndPage(<WinPage />);
-			setGameOver(true);
-		} else if (x > 5) {
-			setEndPage(<LosePage />);
-			let endCellArray = [
-				["", "", "", "", ""],
-				["", "", "", "", ""],
-				["", "", "", "", ""],
-				["", "", "", "", ""],
-				["", "", "", "", ""],
-				["", "", "", "", ""],
-			];
-			setCellArray(endCellArray);
+			if (window.localStorage.getItem("win") === "true") {
+				setEndPage(<WinPage />);
+				setGameOver(true);
+			} else if (x > 5) {
+				setEndPage(<LosePage />);
+				let endCellArray = [
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+				];
+				setCellArray(endCellArray);
+			}
+		}
+
+		//check if the grid has values
+		console.log(`${date}`);
+		if (window.localStorage.getItem("gameOver") === date) {
+			console.log(`here`);
+
+			let oldCells = window.localStorage.getItem("cellArray");
+			let oldClasses = window.localStorage.getItem("classArray");
+			let oldX = window.localStorage.getItem("oldX");
+			window.localStorage.removeItem("oldX");
+			if (oldCells !== null && oldClasses !== null) {
+				oldCells = JSON.parse(oldCells);
+				oldClasses = JSON.parse(oldClasses);
+				oldX = JSON.parse(oldX);
+				if (oldCells.length > 1 && oldClasses.length > 1) {
+					setCellArray(oldCells);
+					setClassArray(oldClasses);
+					setX(oldX);
+				}
+			}
 		}
 	}, [date]);
 	//check which letters are correct
@@ -132,6 +139,7 @@ export default function Speedle() {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
 			setGameOver(true);
 			window.localStorage.setItem("gameOver", date);
+			window.localStorage.setItem("win", "true");
 			let endCellArray = [
 				["", "", "", "", ""],
 				["", "", "", "", ""],
@@ -146,6 +154,8 @@ export default function Speedle() {
 			}, 250);
 		} else if (x >= 5) {
 			setGameOver(true);
+			window.localStorage.setItem("win", "false");
+			window.localStorage.setItem("gameOver", date);
 			setEndPage(<LosePage />);
 			let endCellArray = [
 				["", "", "", "", ""],

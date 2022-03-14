@@ -22,7 +22,7 @@ export default function LoginForm() {
 			window.localStorage.setItem("averageScore", res.averageScore);
 			window.localStorage.setItem("streak", res.streak);
 			window.localStorage.setItem("lastLogin", res.lastLogin);
-			router.push("speedle");
+			router.push("blurtle");
 		} else {
 			alert("Incorrect username or password.");
 			console.error(res.error);
