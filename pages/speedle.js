@@ -37,7 +37,7 @@ export default function Speedle() {
 		<span className="Tutorial-text">BLURTLE</span>
 	);
 	const [endPage, setEndPage] = useState(<></>);
-	const [hasWon, setHasWon] = useState(false);
+	const [gameOver, setGameOver] = useState(false);
 
 	const router = useRouter();
 	//initial setup
@@ -82,11 +82,20 @@ export default function Speedle() {
 	}, [x]);
 	//check if you've won already today
 	useEffect(() => {
-		if (window.localStorage.getItem("hasWon") === date) {
+		if (window.localStorage.getItem("gameOver") === date) {
 			setEndPage(<WinPage />);
-			setHasWon(true);
+			setGameOver(true);
 		} else if (x > 5) {
 			setEndPage(<LosePage />);
+			let endCellArray = [
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+			];
+			setCellArray(endCellArray);
 		}
 	}, [date]);
 	//check which letters are correct
@@ -121,8 +130,9 @@ export default function Speedle() {
 		const guess = cellArray[x].join("");
 		if (WOTD === guess) {
 			setWinMessage(<span className="Tutorial-text">YOU WIN!</span>);
-			setHasWon(true);
-			let winningCellArray = [
+			setGameOver(true);
+			window.localStorage.setItem("gameOver", date);
+			let endCellArray = [
 				["", "", "", "", ""],
 				["", "", "", "", ""],
 				["", "", "", "", ""],
@@ -130,13 +140,22 @@ export default function Speedle() {
 				["", "", "", "", ""],
 				["", "", "", "", ""],
 			];
-			window.localStorage.setItem("hasWon", date);
-			setCellArray(winningCellArray);
+			setCellArray(endCellArray);
 			setTimeout(() => {
 				setEndPage(<WinPage tries={x} />);
 			}, 250);
-		} else if (x > 5) {
+		} else if (x >= 5) {
+			setGameOver(true);
 			setEndPage(<LosePage />);
+			let endCellArray = [
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+				["", "", "", "", ""],
+			];
+			setCellArray(endCellArray);
 		} else {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
@@ -163,9 +182,9 @@ export default function Speedle() {
 			<Gameboard
 				cellArray={cellArray}
 				classArray={classArray}
-				hasWon={hasWon}
+				gameOver={gameOver}
 			></Gameboard>
-			{!hasWon ? (
+			{!gameOver ? (
 				<Keyboard
 					cellArray={cellArray}
 					setCellArray={setCellArray}
