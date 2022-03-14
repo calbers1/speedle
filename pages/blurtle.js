@@ -8,7 +8,7 @@ import Gameboard from "../components/Gameboard";
 import WinPage from "../components/WinPage";
 import LosePage from "../components/LosePage";
 
-export default function blurtle() {
+export default function Blurtle() {
 	const [userName, setUserName] = useState("");
 	const [highScore, sethighScore] = useState("");
 	const [averageScore, setaverageScore] = useState("");
