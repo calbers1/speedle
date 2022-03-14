@@ -32,6 +32,7 @@ export default function Blurtle() {
 		["", "", "", "", ""],
 	]);
 	const [date, setDate] = useState();
+	const [lastLogin, setLastLogin] = useState();
 	const [WOTD, setWOTD] = useState("");
 	const [winMessage, setWinMessage] = useState(
 		<span className="Tutorial-text">BLURTLE</span>
@@ -51,6 +52,10 @@ export default function Blurtle() {
 
 		//set up word of the day
 		const word = await (await fetch("/api/getWOTD")).json();
+		const lastLogin = await window.localStorage.getItem("lastLogin");
+		if (lastLogin !== undefined) {
+			setLastLogin(lastLogin);
+		} else setLastLogin(word.date);
 		setDate(word.date);
 		setWOTD(word.word);
 	}, []);
@@ -65,30 +70,20 @@ export default function Blurtle() {
 		window.set;
 	}, [x]);
 	//check if you've already played today
-	useEffect(() => {
+	useEffect(async () => {
 		if (window.localStorage.getItem("gameOver") === date) {
 			if (window.localStorage.getItem("win") === "true") {
 				setEndPage(<WinPage />);
 				setGameOver(true);
 			} else if (x > 5) {
 				setEndPage(<LosePage />);
-				let endCellArray = [
-					["", "", "", "", ""],
-					["", "", "", "", ""],
-					["", "", "", "", ""],
-					["", "", "", "", ""],
-					["", "", "", "", ""],
-					["", "", "", "", ""],
-				];
-				setCellArray(endCellArray);
 			}
 		}
 
 		//check if the grid has values
-		console.log(`${date}`);
-		if (window.localStorage.getItem("gameOver") === date) {
-			console.log(`here`);
 
+		if (lastLogin === date) {
+			alert("you made it");
 			let oldCells = window.localStorage.getItem("cellArray");
 			let oldClasses = window.localStorage.getItem("classArray");
 			let oldX = window.localStorage.getItem("oldX");
@@ -103,7 +98,13 @@ export default function Blurtle() {
 					setX(oldX);
 				}
 			}
+		} else {
+			setLastLogin(date);
 		}
+		// if (JSON.parse(lastLogin) === date - 1){
+		// 	window.localStorage.setItem("streak", JSON.stringify(JSON));
+		// }
+		window.localStorage.setItem("lastLogin", date);
 	}, [date]);
 	//check which letters are correct
 	const checkLetters = () => {

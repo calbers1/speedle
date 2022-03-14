@@ -49,8 +49,6 @@ export default function CreateUserForm() {
 							window.localStorage.setItem("highScore", user.highScore);
 							window.localStorage.setItem("averageScore", user.averageScore);
 							window.sessionStorage.setItem("showTutorial", 1);
-							window.localStorage.setItem("streak", res.streak);
-							window.localStorage.setItem("lastLogin", res.lastLogin);
 						}
 					} catch (err) {
 						console.error("ERROR: ", err);
