@@ -6,6 +6,7 @@ import Tutorial from "../components/Tutorial";
 import Keyboard from "../components/Keyboard";
 import Gameboard from "../components/Gameboard";
 import WinPage from "../components/WinPage";
+import LosePage from "../components/LosePage";
 
 export default function Speedle() {
 	const [userName, setUserName] = useState("");
@@ -35,7 +36,7 @@ export default function Speedle() {
 	const [winMessage, setWinMessage] = useState(
 		<span className="Tutorial-text">BLURTLE</span>
 	);
-	const [winPage, setWinPage] = useState(<></>);
+	const [endPage, setEndPage] = useState(<></>);
 	const [hasWon, setHasWon] = useState(false);
 
 	const router = useRouter();
@@ -82,8 +83,10 @@ export default function Speedle() {
 	//check if you've won already today
 	useEffect(() => {
 		if (window.localStorage.getItem("hasWon") === date) {
-			setWinPage(<WinPage />);
+			setEndPage(<WinPage />);
 			setHasWon(true);
+		} else if (x > 5) {
+			setEndPage(<LosePage />);
 		}
 	}, [date]);
 	//check which letters are correct
@@ -130,8 +133,10 @@ export default function Speedle() {
 			window.localStorage.setItem("hasWon", date);
 			setCellArray(winningCellArray);
 			setTimeout(() => {
-				setWinPage(<WinPage tries={x} />);
+				setEndPage(<WinPage tries={x} />);
 			}, 250);
+		} else if (x > 5) {
+			setEndPage(<LosePage />);
 		} else {
 			setWinMessage(<span className="Tutorial-text">TRY AGAIN.</span>);
 		}
@@ -147,7 +152,7 @@ export default function Speedle() {
 			<Box>
 				{/* Logged In As {userName}. Average Score: {averageScore}. High Score:{" "}
 				{highScore}. Word Of The Day: {WOTD}  */}
-				{winPage}
+				{endPage}
 				{tutorial}
 			</Box>
 			<Container
