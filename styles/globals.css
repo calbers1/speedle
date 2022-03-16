@@ -149,25 +149,6 @@ a {
 
 /* KEYBOARD: */
 
-@media only screen and (max-width: 799px) {
-	.keyboard {
-		display: grid;
-		grid-template-columns: repeat(20, minmax(auto, 1.5em));
-		grid-auto-rows: 7em;
-		gap: 0.5em;
-		justify-content: center;
-	}
-	.key:focus {
-		transition: 0.25s;
-		transform: translate(0px, -2px);
-		cursor: pointer;
-		--lightness: 60%;
-	}
-	.snackbar {
-		font-size: 2.5em;
-	}
-}
-
 @media only screen and (min-width: 800px) {
 	.keyboard {
 		display: grid;
@@ -239,8 +220,8 @@ a {
 }
 .wrong-location {
 	/* --hue: 40;
-	--saturation: 90%;
-	--lightness: 50%; */
+		--saturation: 90%;
+		--lightness: 50%; */
 	transition: 0.5s;
 	color: black !important;
 	background-color: hsl(
@@ -262,6 +243,32 @@ a {
 	);
 }
 
+@media only screen and (max-width: 799px) {
+	.keyboard {
+		display: grid;
+		grid-template-columns: repeat(20, minmax(auto, 1.5em));
+		grid-auto-rows: 7em;
+		gap: 0.5em;
+		justify-content: center;
+	}
+	.key:focus {
+		transition: 0.25s;
+		transform: translate(0px, -2px);
+		cursor: pointer;
+		--lightness: 60%;
+	}
+	.snackbar {
+		font-size: 2.5em;
+	}
+	.key {
+		font-size: 2em;
+	}
+
+	.big-key {
+		font-size: 1.5em;
+	}
+}
+
 /* GAMEBOARD: */
 
 .Gameboard {
@@ -269,21 +276,14 @@ a {
 	justify-content: center;
 	align-content: center;
 	flex-grow: 1;
-	grid-template-columns: repeat(5, 3em);
-	grid-template-rows: repeat(6, 3em);
+	grid-template-columns: repeat(5, 4em);
+	grid-template-rows: repeat(6, 4em);
 	gap: 0.25em;
 	margin-bottom: 1em;
 }
 
-@media only screen and (max-width: 799px) {
-	.Gameboard {
-		grid-template-columns: repeat(5, 5em);
-		grid-template-rows: repeat(6, 5em);
-	}
-}
-
 .Gameboard-cell {
-	border-radius: 0.15em;
+	border-radius: 0.25em;
 	border: 2px solid var(--cell-background-color);
 	font-size: 2em;
 	text-transform: uppercase;
@@ -296,10 +296,20 @@ a {
 	justify-content: center;
 	animation: appear 0.5s ease-in-out;
 }
+@media only screen and (max-width: 799px) {
+	.Gameboard {
+		grid-template-columns: repeat(5, 7em);
+		grid-template-rows: repeat(6, 7em);
+	}
+	.Gameboard-cell {
+		font-size: 4em;
+	}
+}
 
 @keyframes appear {
 	0% {
 		transform: scale(0);
+		opacity: 0%;
 	}
 }
 

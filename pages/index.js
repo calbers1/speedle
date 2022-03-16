@@ -23,7 +23,6 @@ export default function Home() {
 					window.localStorage.setItem("highScore", user.highScore);
 					window.localStorage.setItem("averageScore", user.averageScore);
 					window.localStorage.setItem("streak", res.streak);
-					window.localStorage.setItem("lastLogin", res.lastLogin);
 					router.push(`blurtle`);
 				}
 			} catch (err) {

@@ -46,16 +46,13 @@ export default function Blurtle() {
 		setUserName(window.localStorage.getItem("userName"));
 		sethighScore(window.localStorage.getItem("highScore"));
 		setaverageScore(window.localStorage.getItem("averageScore"));
+		setLastLogin(window.localStorage.getItem("lastLogin"));
 		setTutorial(
 			window.sessionStorage.getItem("showTutorial") === "1" ? <Tutorial /> : ""
 		);
 
 		//set up word of the day
 		const word = await (await fetch("/api/getWOTD")).json();
-		const lastLogin = await window.localStorage.getItem("lastLogin");
-		if (lastLogin !== undefined) {
-			setLastLogin(lastLogin);
-		} else setLastLogin(word.date);
 		setDate(word.date);
 		setWOTD(word.word);
 	}, []);
@@ -67,7 +64,6 @@ export default function Blurtle() {
 			window.localStorage.setItem("cellArray", JSON.stringify(cellArray));
 			window.localStorage.setItem("oldX", x);
 		}
-		window.set;
 	}, [x]);
 	//check if you've already played today
 	useEffect(async () => {
@@ -81,30 +77,75 @@ export default function Blurtle() {
 		}
 
 		//check if the grid has values
+		console.log("LastLogin: ", lastLogin, " Date: ", date);
 
-		if (lastLogin === date) {
-			let oldCells = window.localStorage.getItem("cellArray");
-			let oldClasses = window.localStorage.getItem("classArray");
-			let oldX = window.localStorage.getItem("oldX");
-			window.localStorage.removeItem("oldX");
-			if (oldCells !== null && oldClasses !== null) {
-				oldCells = JSON.parse(oldCells);
-				oldClasses = JSON.parse(oldClasses);
-				oldX = JSON.parse(oldX);
-				if (oldCells.length > 1 && oldClasses.length > 1) {
-					setCellArray(oldCells);
-					setClassArray(oldClasses);
-					setX(oldX);
+		if (lastLogin !== "undefined" && date > 1) {
+			if (lastLogin === date) {
+				let oldCells = window.localStorage.getItem("cellArray");
+				let oldClasses = window.localStorage.getItem("classArray");
+				let oldX = window.localStorage.getItem("oldX");
+				window.localStorage.removeItem("oldX");
+				if (oldCells !== null && oldClasses !== null) {
+					oldCells = JSON.parse(oldCells);
+					oldClasses = JSON.parse(oldClasses);
+					oldX = JSON.parse(oldX);
+					if (oldCells.length > 1 && oldClasses.length > 1) {
+						setCellArray(oldCells);
+						setClassArray(oldClasses);
+						setX(oldX);
+					}
 				}
+			} else {
+				console.log("DATE: ", date);
+				if (date > 1) {
+					window.localStorage.setItem("lastLogin", date);
+				}
+				setClassArray([
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+				]);
+				setCellArray([
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+					["", "", "", "", ""],
+				]);
+				window.localStorage.setItem(
+					"classArray",
+					JSON.stringify([
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+					])
+				);
+				window.localStorage.setItem(
+					"cellArray",
+					JSON.stringify([
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+						["", "", "", "", ""],
+					])
+				);
+				setX(0);
+				window.localStorage.setItem("oldX", 0);
 			}
-		} else {
-			setLastLogin(date);
+			// if (JSON.parse(lastLogin) === date - 1){
+			// 	window.localStorage.setItem("streak", JSON.stringify(JSON));
+			// }
 		}
-		// if (JSON.parse(lastLogin) === date - 1){
-		// 	window.localStorage.setItem("streak", JSON.stringify(JSON));
-		// }
-		window.localStorage.setItem("lastLogin", date);
-	}, [date]);
+	}, [lastLogin, date]);
 	//check which letters are correct
 	const checkLetters = () => {
 		const guess = cellArray[x];
