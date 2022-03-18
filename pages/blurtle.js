@@ -78,10 +78,7 @@ export default function Blurtle() {
 			}
 		} catch (err) {
 			console.log('ERROR: ', err)
-		} finally {
-			// return userState
-			// console.log(userState)
-		}
+		} 
 		return 0
 	}
 
@@ -155,7 +152,6 @@ export default function Blurtle() {
 			entityId: clientState.entityId,
 			classArray: newClassArray,
 		}
-		console.log('New State From Letters: ', newState)
 		return newState
 	}
 
@@ -165,7 +161,6 @@ export default function Blurtle() {
 		const guessArray = cellArray.slice(x, x + y)
 		const guess = guessArray.join('')
 		let newState = await checkLetters()
-		console.log(newState)
 		newState.x = clientState.x + 1
 		setY(0)
 		if (WOTD === guess) {
@@ -187,7 +182,6 @@ export default function Blurtle() {
 			newState.cellArray = cellArray
 		}
 
-		console.log('New State From Win: ', newState)
 		setClientState(await syncGameState(newState))
 	}
 	//log out
