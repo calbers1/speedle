@@ -55,7 +55,7 @@ export default function Keyboard(props) {
 	}
 
 	function del() {
-		if (props.y >= 0 && props.y < 6) {
+		if (props.y > 0 && props.y < 6) {
 			let newCellArray = props.cellArray
 			newCellArray[props.x * 5 + props.y - 1] = ''
 			props.setCellArray(newCellArray)

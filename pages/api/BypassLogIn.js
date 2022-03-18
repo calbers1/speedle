@@ -1,15 +1,15 @@
-import { BypassLogIn } from "../../lib/redis";
+import { BypassLogIn } from '../../lib/redis'
 
 export default async function handler(req, res) {
-	if (req.method !== "GET") {
-		res.status(400).send({ message: "Only GET requests allowed" });
-		return;
+	if (req.method !== 'GET') {
+		res.status(400).send({ message: 'Only GET requests allowed' })
+		return
 	}
-	const user = await BypassLogIn(req.query);
+	const user = await BypassLogIn(req.query)
 	if (user.userName === null) {
-		console.error(err);
-		res.status(500).json({ err });
-		return 0;
+		console.error("You've passed a bad user in.")
+		res.status(500).send('bad user!')
+		return 0
 	}
-	res.status(200).json({ user });
+	res.status(200).json({ user })
 }
