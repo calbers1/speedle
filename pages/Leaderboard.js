@@ -14,8 +14,8 @@ export default function Leaderboard(){
 
     return(
         <div>
-            <h1 className="scoreLabel">Today's Scores</h1>
-        <TableContainer component={Paper} sx={{minWidth: "80vw", maxHeight: "80vh"}}>
+            <h1 className="scoreLabel">Today&apos;s Scores</h1>
+        <TableContainer component={Paper} sx={{minWidth: "80vw", maxHeight: "60vh"}}>
 
         <Table sx={{minWidth: "80vw"}} size="large" stickyHeader>
             <TableHead>

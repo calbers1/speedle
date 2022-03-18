@@ -341,7 +341,7 @@ a {
 	width: 80%;
 	margin-top: 1em;
 	border: 1px solid hsl(142, 76%,68%);
-	font-size: x-small;
+	font-size: small;
 }
 .btnNav:hover, .btnNav-win:hover, .btnNav-lose:hover{
 	background-color: var(--cell-background-color);
@@ -355,11 +355,11 @@ a {
 
 @media only screen and (min-width: 799px) {
 	.columnLabel{
-		font-size: medium;
+		font-size: x-large;
 	}
 	
 	.scoreCell{
-		font-size: small;
+		font-size: medium;
 	}
 
 	.btnNav, .btnNav-win, .btnNav-lose{
