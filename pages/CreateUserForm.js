@@ -45,9 +45,6 @@ export default function CreateUserForm() {
 						).json();
 						const user = res.user;
 						if (!res.error) {
-							window.localStorage.setItem("userName", user.userName);
-							window.localStorage.setItem("highScore", user.highScore);
-							window.localStorage.setItem("averageScore", user.averageScore);
 							window.sessionStorage.setItem("showTutorial", 1);
 						}
 					} catch (err) {

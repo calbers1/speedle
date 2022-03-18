@@ -17,11 +17,6 @@ export default function LoginForm() {
 		const res = await (await fetch("/api/login?" + params)).json();
 		if (!res.error) {
 			window.localStorage.setItem("userString", res.entityId);
-			window.localStorage.setItem("userName", res.userName);
-			window.localStorage.setItem("highScore", res.highScore);
-			window.localStorage.setItem("averageScore", res.averageScore);
-			window.localStorage.setItem("streak", res.streak);
-			window.localStorage.setItem("lastLogin", res.lastLogin);
 			router.push("blurtle");
 		} else {
 			alert("Incorrect username or password.");

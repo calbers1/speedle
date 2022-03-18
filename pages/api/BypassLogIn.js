@@ -6,8 +6,9 @@ export default async function handler(req, res) {
 		return;
 	}
 	const user = await BypassLogIn(req.query);
-	if (user === "") {
+	if (user.userName === null) {
 		console.error(err);
+		res.status(500).json({ err });
 		return 0;
 	}
 	res.status(200).json({ user });

@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 export default function Gameboard(props) {
 	return (
 		<div className="Gameboard">
-			{props.cellArray.map((x, Xindex) =>
-				x.map((y, Yindex) => (
+			{props.classArray ? (
+				props.cellArray.map((x, Xindex) => (
 					<div
-						key={`${Xindex}${Yindex}`}
-						className={`Gameboard-cell ${props.classArray[Xindex][Yindex]}`}
+						key={`${Xindex}`}
+						className={`Gameboard-cell ${props.classArray[Xindex]}`}
 					>
-						{!props.hasWon ? y : ""}
+						{props.gameOver ? '' : x}
 					</div>
 				))
+			) : (
+				<span></span>
 			)}
 		</div>
-	);
+	)
 }

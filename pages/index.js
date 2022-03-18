@@ -9,20 +9,15 @@ export default function Home() {
 	useEffect(async () => {
 		const userString = window.localStorage.getItem("userString");
 		if (userString) {
-			const q = {
+			const paramList = {
 				userID: userString,
 			};
 
-			const params = new URLSearchParams(q);
+			const params = new URLSearchParams(paramList);
 
 			try {
 				const res = await (await fetch("/api/BypassLogIn?" + params)).json();
-				const user = res.user;
 				if (!res.error) {
-					window.localStorage.setItem("userName", user.userName);
-					window.localStorage.setItem("highScore", user.highScore);
-					window.localStorage.setItem("averageScore", user.averageScore);
-					window.localStorage.setItem("streak", res.streak);
 					router.push(`blurtle`);
 				}
 			} catch (err) {
