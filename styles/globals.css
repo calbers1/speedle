@@ -298,8 +298,8 @@ a {
 }
 @media only screen and (max-width: 799px) {
 	.Gameboard {
-		grid-template-columns: repeat(5, 7em);
-		grid-template-rows: repeat(6, 7em);
+		grid-template-columns: repeat(5, 6em);
+		grid-template-rows: repeat(6, 6em);
 	}
 	.Gameboard-cell {
 		font-size: 4em;
@@ -318,3 +318,52 @@ a {
 .Win {
 	opacity: 80%;
 }
+
+
+/* Scores Page */
+.scoreLabel{
+	font-size: xx-large;
+}
+
+.columnLabel{
+	font-family: 'Fredoka', sans-serif;
+	font-size: large;
+	font-weight: bold;
+}
+
+.scoreCell{
+	font-family: 'Fredoka', sans-serif;
+	font-size: medium;
+}
+
+.btnNav, .btnNav-win, .btnNav-lose{
+	color: hsl(142, 76%,68%);
+	width: 80%;
+	margin-top: 1em;
+	border: 1px solid hsl(142, 76%,68%);
+	font-size: x-small;
+}
+.btnNav:hover, .btnNav-win:hover, .btnNav-lose:hover{
+	background-color: var(--cell-background-color);
+	border: 1px solid hsl(142, 76%,68%);
+}
+.btnNav{
+
+	margin-left: 50%; 
+	transform: translateX(-50%); 
+}
+
+@media only screen and (min-width: 799px) {
+	.columnLabel{
+		font-size: medium;
+	}
+	
+	.scoreCell{
+		font-size: small;
+	}
+
+	.btnNav, .btnNav-win, .btnNav-lose{
+		width: 20%;
+	}
+}
+

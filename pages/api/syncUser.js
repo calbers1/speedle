@@ -7,8 +7,6 @@ export default async function handler(req, res) {
 	}
 	if (req.body !== 0) {
 		const user = await syncUser(req.body)
-		console.log('REQUEST: ', req.body)
-		console.log('USER FROM SYNC API: ', user)
 		res.status(200).json(user)
 	}
 }

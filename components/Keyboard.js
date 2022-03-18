@@ -75,10 +75,7 @@ export default function Keyboard(props) {
 				props.x * 5 + props.y
 			)
 			const guess = guessArray.join('')
-			console.log('GUESS: ', guess)
 			if (validWords.includes(guess.toLowerCase())) {
-				// props.setX(props.x + 1);
-				// props.setY(0);
 				checkKeyboardLetters()
 				setElementArray([])
 				props.checkWin()

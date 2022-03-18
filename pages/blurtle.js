@@ -128,7 +128,11 @@ export default function Blurtle() {
 		const guess = cellArray.slice(clientState.x * 5, clientState.x * 5 + y)
 		let answer = WOTD.split('')
 		const newClassArray = clientState.classArray
-		const x = clientState.x * 5
+		const x = clientState.x * 5		
+		const newState = {
+			entityId: clientState.entityId,
+			x: clientState.x + 1
+		}
 		//loop to find right letters. If it's right, it's replaced in the array by " ".
 		for (let i = 0; i < 5; i++) {
 			if (answer[i] === guess[i]) {
@@ -148,10 +152,8 @@ export default function Blurtle() {
 			}
 		}
 
-		const newState = {
-			entityId: clientState.entityId,
-			classArray: newClassArray,
-		}
+
+		newState.classArray = newClassArray
 		return newState
 	}
 
@@ -161,28 +163,29 @@ export default function Blurtle() {
 		const guessArray = cellArray.slice(x, x + y)
 		const guess = guessArray.join('')
 		let newState = await checkLetters()
-		newState.x = clientState.x + 1
-		setY(0)
 		if (WOTD === guess) {
 			newState.lastWin = clientState.date
 			if (clientState.lastWin === clientState.date - 1) {
 				newState.streak = clientState.streak + 1
-			}
+			}else{newState.streak = 0}
+			const multiplier = (parseInt(newState.streak) * .1)
+			newState.score = (
+				( multiplier + 1) * (multiplier + (100 - (clientState.x * 10)))
+				)
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
 			setCellArray(endCellArray)
-			// setTimeout(() => {
-			// 	setEndPage(<WinPage tries={newState.x} />)
-			// }, 250)
 		} else if (clientState.x >= 5) {
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
+			newState.streak = 0;
+			newState.score = 0;
 			setCellArray(endCellArray)
 		} else {
 			newState.cellArray = cellArray
 		}
-
 		setClientState(await syncGameState(newState))
+		setY(0)
 	}
 	//log out
 	const logOut = () => {
@@ -196,7 +199,7 @@ export default function Blurtle() {
 				<div>
 					<Box>
 						{clientState.lastWin === clientState.date ? (
-							<WinPage tries={clientState.x - 1} />
+							<WinPage tries={clientState.x} />
 						) : clientState.x > 5 ? (
 							<LosePage />
 						) : (
