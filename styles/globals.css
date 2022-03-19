@@ -159,7 +159,7 @@ a {
 	}
 
 	.snackbar {
-		font-size: 1em;
+		font-size: 1em !important;
 	}
 }
 
@@ -319,51 +319,54 @@ a {
 	opacity: 80%;
 }
 
-
 /* Scores Page */
-.scoreLabel{
+.scoreLabel {
 	font-size: xx-large !important;
 }
 
-.columnLabel{
+.columnLabel {
 	font-family: 'Fredoka', sans-serif !important;
 	font-size: large !important;
 	font-weight: bold !important;
 }
 
-.scoreCell{
+.scoreCell {
 	font-family: 'Fredoka', sans-serif !important;
 	font-size: medium !important;
 }
 
-.btnNav, .btnNav-win, .btnNav-lose{
-	color: hsl(142, 76%,68%) !important;
+.btnNav,
+.btnNav-win,
+.btnNav-lose {
+	color: hsl(142, 76%, 68%) !important;
 	width: 80% !important;
 	margin-top: 1em !important;
-	border: 1px solid hsl(142, 76%,68%) !important;
+	border: 1px solid hsl(142, 76%, 68%) !important;
 	font-size: small !important;
 }
-.btnNav:hover, .btnNav-win:hover, .btnNav-lose:hover{
+.btnNav:hover,
+.btnNav-win:hover,
+.btnNav-lose:hover {
 	background-color: var(--cell-background-color) !important;
-	border: 1px solid hsl(142, 76%,68%) !important;
+	border: 1px solid hsl(142, 76%, 68%) !important;
 }
-.btnNav{
-
-	margin-left: 50% !important; 
-	transform: translateX(-50%) !important; 
+.btnNav {
+	margin-left: 50% !important;
+	transform: translateX(-50%) !important;
 }
 
 @media only screen and (min-width: 799px) {
-	.columnLabel{
+	.columnLabel {
 		font-size: x-large !important;
 	}
-	
-	.scoreCell{
+
+	.scoreCell {
 		font-size: medium !important;
 	}
 
-	.btnNav, .btnNav-win, .btnNav-lose{
+	.btnNav,
+	.btnNav-win,
+	.btnNav-lose {
 		width: 20% !important;
 	}
 }
-
