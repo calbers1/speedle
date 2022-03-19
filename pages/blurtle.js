@@ -173,6 +173,9 @@ export default function Blurtle() {
 			newState.score =
 				(multiplier + 1) * (multiplier + (100 - clientState.x * 10))
 			newState.score = newState.score.toFixed(0)
+			if (newState.score > clientState.highScore) {
+				newState.highScore = newState.score
+			}
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
 			setCellArray(endCellArray)
