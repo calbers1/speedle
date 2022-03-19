@@ -160,6 +160,7 @@ a {
 
 	.snackbar {
 		font-size: 1em !important;
+		font-family: 'Fredoka', sans-serif !important;
 	}
 }
 
@@ -258,7 +259,8 @@ a {
 		--lightness: 60%;
 	}
 	.snackbar {
-		font-size: 2.5em;
+		font-size: 2.5em !important;
+		font-family: 'Fredoka', sans-serif !important;
 	}
 	.key {
 		font-size: 2em;
