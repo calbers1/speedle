@@ -78,7 +78,7 @@ export default function Blurtle() {
 			}
 		} catch (err) {
 			console.log('ERROR: ', err)
-		} 
+		}
 		return 0
 	}
 
@@ -128,10 +128,10 @@ export default function Blurtle() {
 		const guess = cellArray.slice(clientState.x * 5, clientState.x * 5 + y)
 		let answer = WOTD.split('')
 		const newClassArray = clientState.classArray
-		const x = clientState.x * 5		
+		const x = clientState.x * 5
 		const newState = {
 			entityId: clientState.entityId,
-			x: clientState.x + 1
+			x: clientState.x + 1,
 		}
 		//loop to find right letters. If it's right, it's replaced in the array by " ".
 		for (let i = 0; i < 5; i++) {
@@ -152,7 +152,6 @@ export default function Blurtle() {
 			}
 		}
 
-
 		newState.classArray = newClassArray
 		return newState
 	}
@@ -167,19 +166,21 @@ export default function Blurtle() {
 			newState.lastWin = clientState.date
 			if (clientState.lastWin === clientState.date - 1) {
 				newState.streak = clientState.streak + 1
-			}else{newState.streak = 0}
-			const multiplier = (parseInt(newState.streak) * .1)
-			newState.score = (
-				( multiplier + 1) * (multiplier + (100 - (clientState.x * 10)))
-				)
+			} else {
+				newState.streak = 0
+			}
+			const multiplier = parseInt(newState.streak) * 0.0075
+			newState.score =
+				(multiplier + 1) * (multiplier + (100 - clientState.x * 10))
+			newState.score = newState.score.toFixed(0)
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
 			setCellArray(endCellArray)
 		} else if (clientState.x >= 5) {
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
-			newState.streak = 0;
-			newState.score = 0;
+			newState.streak = 0
+			newState.score = 0
 			setCellArray(endCellArray)
 		} else {
 			newState.cellArray = cellArray
