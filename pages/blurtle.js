@@ -89,6 +89,10 @@ export default function Blurtle() {
 			entityId: await window.localStorage.getItem('userString'),
 		}
 
+		if (userString.entityId === null || userString.entityId === undefined) {
+			router.push('/')
+		}
+
 		const userData = await syncGameState(userString)
 
 		setServerState(userData)
