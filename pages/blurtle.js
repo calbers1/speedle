@@ -176,7 +176,7 @@ export default function Blurtle() {
 			if (clientState.lastWin === clientState.date - 1) {
 				newState.streak = clientState.streak + 1
 			} else {
-				newState.streak = 0
+				newState.streak = 1
 			}
 			const multiplier = parseInt(newState.streak) * 0.0075
 			newState.score =
@@ -191,7 +191,7 @@ export default function Blurtle() {
 		} else if (clientState.x >= 5) {
 			let endCellArray = EMPTY_CELLS
 			newState.cellArray = endCellArray
-			newState.streak = 0
+			newState.streak = 1
 			newState.score = 0
 			setCellArray(endCellArray)
 		} else {
