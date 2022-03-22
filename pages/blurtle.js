@@ -142,8 +142,12 @@ export default function Blurtle() {
 			if (answer[i] === guess[i]) {
 				newClassArray[x + i] += ' right'
 				answer[i] = ' ' //this is so that the index stays on track, but will "use up" letters to avoid duplicate coloring.
+				guess[i] = ''
 			}
 		}
+		console.log(answer)
+		console.log(guess)
+		console.log('After Correct: ', newClassArray)
 
 		//loop through array without right answers.
 		for (let i = 0; i < 5; i++) {
@@ -155,6 +159,7 @@ export default function Blurtle() {
 				newClassArray[x + i] += ' wrong'
 			}
 		}
+		console.log('After wrong: ', newClassArray)
 
 		newState.classArray = newClassArray
 		return newState
