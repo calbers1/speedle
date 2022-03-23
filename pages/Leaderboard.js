@@ -29,7 +29,7 @@ export default function Leaderboard() {
 			<h1 className="scoreLabel">Today&apos;s Scores</h1>
 			<TableContainer
 				component={Paper}
-				sx={{ minWidth: '80vw', maxHeight: '60vh' }}
+				sx={{ minWidth: '80vw', maxWidth: '96vw', maxHeight: '60vh' }}
 			>
 				<Table sx={{ minWidth: '80vw' }} size="large" stickyHeader>
 					<TableHead>
