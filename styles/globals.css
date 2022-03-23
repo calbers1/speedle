@@ -335,7 +335,7 @@ a {
 .scoreCell {
 	font-family: 'Fredoka', sans-serif !important;
 	font-size: medium !important;
-	max-width: 14em;
+	max-width: 12em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
