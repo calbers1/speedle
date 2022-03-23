@@ -6,6 +6,10 @@ export default async (req, res) => {
 
 	//return only userNames
 	const userNames = users.map((user) => user.userName)
-	//return userNames as json
-	res.json(userNames)
+	//pretty print userNames
+	const prettyUserNames = JSON.stringify(userNames, null, 2)
+	//send response
+	res.statusCode = 200
+	res.setHeader('Content-Type', 'application/json')
+	res.end(prettyUserNames)
 }
