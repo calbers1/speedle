@@ -1,15 +1,19 @@
 import { getAllUsers } from '../../lib/redis'
 
-//api that returns all users
+//export default api to return all users
 export default async (req, res) => {
+	//get all users
 	const users = await getAllUsers()
-
-	//return only userNames
-	const userNames = users.map((user) => user.userName)
-	//pretty print userNames
-	const prettyUserNames = JSON.stringify(userNames, null, 2)
-	//send response
-	res.statusCode = 200
-	res.setHeader('Content-Type', 'application/json')
-	res.end(prettyUserNames)
+	//map userName, lastLogin, streak
+	const userData = users.map((user) => {
+		return {
+			userName: user.userName,
+			lastLogin: user.lastLogin,
+			streak: user.streak,
+		}
+	})
+	//prettify userData
+	const prettyUserData = JSON.stringify(userData, null, 2)
+	//send userData
+	res.status(200).json(prettyUserData)
 }
