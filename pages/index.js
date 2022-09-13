@@ -35,11 +35,11 @@ export default function Home() {
 					accounts, streaks, etc. are gone permanently.
 				</h2>
 				<h2>
-					Unfortunately, having just had a baby, I don&apos;t really have the
-					time or mental capacity to recreate everything from scratch at the
-					moment. So, this is going on the back burner. I may end up just
-					creating a different game with a more original idea in it&apos;s
-					place, or I might come back and fix it some day. Or both, who knows.
+					Unfortunately, I don&apos;t really have the time or mental capacity to
+					recreate everything from scratch at the moment. So, this is going on
+					the back burner. I may end up just creating a different game with a
+					more original idea in it&apos;s place, or I might come back and fix it
+					some day. Or both, who knows.
 				</h2>
 				<h2>
 					For now, feel free to let me know any ideas or suggestions you might
