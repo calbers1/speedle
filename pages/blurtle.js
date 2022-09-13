@@ -212,18 +212,18 @@ export default function Blurtle() {
 			<h3>
 				The servers I was using to host the database that powers blurtle somehow
 				managed to delete all the data I had. All the word lists, accounts,
-				streaks, etc. are gone permanently.{' '}
+				streaks, etc. are gone permanently.
 			</h3>
 			<h3>
 				Unfortunately, having just had a baby, I don&apos;t really have the time
 				or mental capacity to recreate everything from scratch at the moment.
 				So, this is going on the back burner. I may end up just creating a
-				different game with a more original idea in it's place, or I might come
-				back and fix it some day. Or both, who knows.{' '}
+				different game with a more original idea in it&apos;s place, or I might
+				come back and fix it some day. Or both, who knows.
 			</h3>
 			<h3>
 				For now, feel free to let me know any ideas or suggestions you might
-				have (for this game or a new one) at{' '}
+				have (for this game or a new one) at
 				<a
 					style={{ color: '#99CCFF' }}
 					href="mailto:calbers.dev@gmail.com?subject=Suggestion"
