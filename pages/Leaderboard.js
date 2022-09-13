@@ -42,7 +42,7 @@ export default function Leaderboard() {
 			</h3>
 			<h3>
 				For now, feel free to let me know any ideas or suggestions you might
-				have (for this game or a new one) at
+				have (for this game or a new one) at <br />
 				<a
 					style={{ color: '#99CCFF' }}
 					href="mailto:calbers.dev@gmail.com?subject=Suggestion"
