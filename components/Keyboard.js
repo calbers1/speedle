@@ -68,14 +68,17 @@ export default function Keyboard(props) {
 		}
 	}
 
-	function enter() {
+	async function enter() {
 		if (props.x <= 5 && props.y === 5) {
 			const guessArray = props.cellArray.slice(
 				props.x * 5,
 				props.x * 5 + props.y
 			)
 			const guess = guessArray.join('')
-			if (isValidWord(guess.toLowerCase())) {
+
+			const isValid = await isValidWord(guess.toLowerCase())
+
+			if (isValid) {
 				checkKeyboardLetters()
 				setElementArray([])
 				props.checkWin()
