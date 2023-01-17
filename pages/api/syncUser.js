@@ -1,4 +1,4 @@
-import { syncUser } from '../../lib/redis'
+import { syncUser } from '../../lib/supabaseClient'
 
 export default async function handler(req, res) {
 	if (req.method !== 'POST') {

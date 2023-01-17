@@ -1,4 +1,4 @@
-import { BypassLogIn } from '../../lib/redis'
+import { BypassLogIn } from '../../lib/supabaseClient'
 
 export default async function handler(req, res) {
 	if (req.method !== 'GET') {
@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 		return
 	}
 	const user = await BypassLogIn(req.query)
-	if (user.userName === null) {
+	if (user === null) {
 		console.error("You've passed a bad user in.")
 		res.status(500).send('bad user!')
 		return 0

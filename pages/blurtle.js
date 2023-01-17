@@ -7,6 +7,7 @@ import Keyboard from '../components/Keyboard'
 import Gameboard from '../components/Gameboard'
 import WinPage from '../components/WinPage'
 import LosePage from '../components/LosePage'
+import { supabase, syncUser } from '../lib/supabaseClient'
 
 export default function Blurtle() {
 	//set up state variables
@@ -62,22 +63,13 @@ export default function Blurtle() {
 
 	//sync with DB
 	async function syncGameState(userData) {
-		try {
-			const res = await fetch('/api/syncUser', {
-				method: 'POST',
-				body: JSON.stringify(userData),
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-			})
-
-			if (res) {
-				const userState = await res.json()
-				return userState
-			}
-		} catch (err) {
-			console.log('ERROR: ', err)
+		//sync with DB
+		const res = await syncUser(userData)
+		if (res.error) {
+			console.error('ERROR: ', res.error)
+		}
+		if (res) {
+			return res
 		}
 		return 0
 	}
@@ -86,10 +78,10 @@ export default function Blurtle() {
 	useEffect(async () => {
 		//get userString to pass to DB to get player's gameState
 		const userString = {
-			entityId: await window.localStorage.getItem('userString'),
+			userId: await window.localStorage.getItem('userString'),
 		}
 
-		if (userString.entityId === null || userString.entityId === undefined) {
+		if (userString.userId === null || userString.userId === undefined) {
 			router.push('/')
 		}
 
@@ -99,7 +91,7 @@ export default function Blurtle() {
 
 		//set up word of the day
 		const word = await (await fetch('/api/getWOTD')).json()
-		setWOTD(word.word)
+		setWOTD(word.word.toUpperCase())
 
 		//set tutorial - only after the first login ever
 		setTutorial(
@@ -118,7 +110,6 @@ export default function Blurtle() {
 				newState.cellArray = cellArray
 				newState.classArray = EMPTY_CELLS
 				newState.x = 0
-				newState.timer = 60
 			} else {
 				setCellArray(serverState.cellArray)
 			}
@@ -134,7 +125,7 @@ export default function Blurtle() {
 		const newClassArray = clientState.classArray
 		const x = clientState.x * 5
 		const newState = {
-			entityId: clientState.entityId,
+			userId: clientState.userId,
 			x: clientState.x + 1,
 		}
 		//loop to find right letters. If it's right, it's replaced in the array by " ".
@@ -145,9 +136,6 @@ export default function Blurtle() {
 				guess[i] = ''
 			}
 		}
-		console.log(answer)
-		console.log(guess)
-		console.log('After Correct: ', newClassArray)
 
 		//loop through array without right answers.
 		for (let i = 0; i < 5; i++) {
@@ -159,7 +147,6 @@ export default function Blurtle() {
 				newClassArray[x + i] += ' wrong'
 			}
 		}
-		console.log('After wrong: ', newClassArray)
 
 		newState.classArray = newClassArray
 		return newState
@@ -207,79 +194,51 @@ export default function Blurtle() {
 	}
 
 	return (
-		<Container>
-			<h1>So this is awkward...</h1>
-			<h2>
-				The servers I was using to host the database that powers blurtle somehow
-				managed to delete all the data I had. All the word lists, accounts,
-				streaks, etc. are gone permanently.
-			</h2>
-			<h2>
-				Unfortunately, I don&apos;t really have the time or mental capacity to
-				recreate everything from scratch at the moment. So, this is going on the
-				back burner. I may end up just creating a different game with a more
-				original idea in it&apos;s place, or I might come back and fix it some
-				day. Or both, who knows.
-			</h2>
-			<h2>
-				For now, feel free to let me know any ideas or suggestions you might
-				have (for this game or a new one) at <br />
-				<a
-					style={{ color: '#99CCFF' }}
-					href="mailto:calbers.dev@gmail.com?subject=Suggestion"
-				>
-					calbers.dev@gmail.com
-				</a>
-			</h2>
-			<h1>Thanks for playing!</h1>
-			{/* <LoginForm />
-		<CreateUserForm /> */}
+		<Container sx={{ width: '100vw', padding: '.5rem' }}>
+			{clientState ? (
+				<div>
+					<Box>
+						{clientState.lastWin === clientState.date ? (
+							<WinPage tries={clientState.x} />
+						) : clientState.x > 5 ? (
+							<LosePage />
+						) : (
+							<></>
+						)}
+						{tutorial}
+					</Box>
+					<Container
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					></Container>
+					<Gameboard
+						cellArray={cellArray}
+						classArray={clientState.classArray}
+						gameOver={clientState.lastWin === clientState.date ? true : false}
+					></Gameboard>
+					{clientState.lastWin !== clientState.date && clientState.x <= 5 ? (
+						<Keyboard
+							cellArray={cellArray}
+							setCellArray={setCellArray}
+							x={clientState.x}
+							y={y}
+							setY={setY}
+							// clientState={clientState}
+							// setClientState={setClientState}
+							checkWin={checkWin}
+							checkLetters={checkLetters}
+							WOTD={WOTD}
+						></Keyboard>
+					) : (
+						<span />
+					)}
+				</div>
+			) : (
+				<span></span>
+			)}
 		</Container>
-		// <Container sx={{ width: '100vw', padding: '.5rem' }}>
-		// 	{clientState ? (
-		// 		<div>
-		// 			<Box>
-		// 				{clientState.lastWin === clientState.date ? (
-		// 					<WinPage tries={clientState.x} />
-		// 				) : clientState.x > 5 ? (
-		// 					<LosePage />
-		// 				) : (
-		// 					<></>
-		// 				)}
-		// 				{tutorial}
-		// 			</Box>
-		// 			<Container
-		// 				sx={{
-		// 					display: 'flex',
-		// 					alignItems: 'center',
-		// 					justifyContent: 'center',
-		// 				}}
-		// 			></Container>
-		// 			<Gameboard
-		// 				cellArray={cellArray}
-		// 				classArray={clientState.classArray}
-		// 				gameOver={clientState.lastWin === clientState.date ? true : false}
-		// 			></Gameboard>
-		// 			{clientState.lastWin !== clientState.date && clientState.x <= 5 ? (
-		// 				<Keyboard
-		// 					cellArray={cellArray}
-		// 					setCellArray={setCellArray}
-		// 					x={clientState.x}
-		// 					y={y}
-		// 					setY={setY}
-		// 					// clientState={clientState}
-		// 					// setClientState={setClientState}
-		// 					checkWin={checkWin}
-		// 					checkLetters={checkLetters}
-		// 					WOTD={WOTD}
-		// 				></Keyboard>
-		// 			) : (
-		// 				<span />
-		// 			)}
-		// 		</div>
-		// 	) : (
-		// 		<span></span>
-		// 	)}
-		// </Container>
 	)
 }

@@ -8,10 +8,10 @@ import {
 	Slide,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { isValidWord } from '../lib/supabaseClient'
 
 export default function Keyboard(props) {
 	const [elementArray, setElementArray] = useState([])
-	const [validWords, setValidWords] = useState([])
 	const [open, setOpen] = useState(false)
 	const [transition, setTransition] = useState(undefined)
 
@@ -75,7 +75,7 @@ export default function Keyboard(props) {
 				props.x * 5 + props.y
 			)
 			const guess = guessArray.join('')
-			if (validWords.includes(guess.toLowerCase())) {
+			if (isValidWord(guess.toLowerCase())) {
 				checkKeyboardLetters()
 				setElementArray([])
 				props.checkWin()
@@ -85,12 +85,6 @@ export default function Keyboard(props) {
 			}
 		}
 	}
-
-	useEffect(async () => {
-		//set up valid words
-		const words = await (await fetch('/api/getValidWords')).json()
-		setValidWords(words)
-	}, [])
 
 	return (
 		<div>

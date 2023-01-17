@@ -1,28 +1,29 @@
-import { useRouter } from "next/router";
-import { Button, TextField, Grid, Box } from "@mui/material";
+import { useRouter } from 'next/router'
+import { Button, TextField, Grid, Box } from '@mui/material'
+import { supabase, LogIn } from '../lib/supabaseClient'
 
 export default function LoginForm() {
-	const router = useRouter();
+	const router = useRouter()
 	const handleSubmit = async (event) => {
-		event.preventDefault();
+		event.preventDefault()
 		const q = {
 			userName: event.target.userName.value,
 			pass: event.target.pass.value,
-		};
-		const params = new URLSearchParams(q);
-		if (q.userName.trim() === "" || q.pass.trim() === "") {
-			alert("Enter a username and password.");
-			return;
 		}
-		const res = await (await fetch("/api/login?" + params)).json();
+		const params = new URLSearchParams(q)
+		if (q.userName.trim() === '' || q.pass.trim() === '') {
+			alert('Enter a username and password.')
+			return
+		}
+		const res = await (await fetch('/api/login?' + params)).json()
 		if (!res.error) {
-			window.localStorage.setItem("userString", res.entityId);
-			router.push("blurtle");
+			window.localStorage.setItem('userString', res.userId)
+			router.push('blurtle')
 		} else {
-			alert("Incorrect username or password.");
-			console.error(res.error);
+			alert('Incorrect username or password.')
+			console.error(res.error)
 		}
-	};
+	}
 
 	return (
 		<div>
@@ -57,7 +58,7 @@ export default function LoginForm() {
 							/>
 						</Grid>
 						<Grid item xs={12} md={12}>
-							<Button variant="contained" type="submit" sx={{ width: "100%" }}>
+							<Button variant="contained" type="submit" sx={{ width: '100%' }}>
 								Log In
 							</Button>
 						</Grid>
@@ -65,5 +66,5 @@ export default function LoginForm() {
 				</div>
 			</Box>
 		</div>
-	);
+	)
 }

@@ -1,4 +1,4 @@
-import { getAllUsers } from '../../lib/redis'
+import { getAllUsers } from '../../lib/supabaseClient'
 
 //export default api to return all users
 export default async (req, res) => {

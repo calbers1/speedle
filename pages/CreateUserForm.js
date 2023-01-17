@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { Button, TextField, Grid, Box, Container } from '@mui/material'
+import { supabase, createUser, BypassLogIn } from '../lib/supabaseClient'
 export default function CreateUserForm() {
 	const router = useRouter()
 	const handleSubmit = async (event) => {
@@ -18,28 +19,16 @@ export default function CreateUserForm() {
 
 		const isValid = await (await fetch('/api/isValidUsername?' + params)).json()
 
-		if (isValid === 0 && formData.pass === formData.pass2) {
+		if (isValid && formData.pass === formData.pass2) {
 			if (formData.pass.trim().length >= 8) {
-				const res = await fetch('/api/createUser', {
-					body: JSON.stringify(formData),
-					headers: {
-						'content-type': 'multipart/form-data',
-					},
-					method: 'POST',
-				})
-				const userString = await res.text()
+				const res = await createUser(JSON.stringify(formData))
+				const userString = await res.userId.toString()
 				window.localStorage.setItem('userString', userString)
 
 				if (userString) {
-					const q = {
-						userID: userString,
-					}
-
-					const params = new URLSearchParams(q)
-
 					try {
-						const res = await (await fetch('/api/BypassLogIn?' + params)).json()
-						const user = res.user
+						//const res = await (await fetch('/api/BypassLogIn?' + params)).json()
+						const user = BypassLogIn(userString)
 						if (!res.error) {
 							window.sessionStorage.setItem('showTutorial', 1)
 						}
