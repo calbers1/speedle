@@ -2,26 +2,18 @@
 
 /* VARIABLES: */
 :root {
-	--cell-background-color: hsl(
-		var(--hue, 248),
-		var(--saturation, 20%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
-	);
-	--wrong-color: hsl(
-		var(--hue, 5),
-		var(--saturation, 80%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
-	);
-	--wrong-location-color: hsl(
-		var(--hue, 35),
-		var(--saturation, 84%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 73%))
-	);
-	--right-color: hsl(
-		var(--hue, 142),
-		var(--saturation, 76%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
-	);
+	--cell-background-color: hsl(var(--hue, 248),
+			var(--saturation, 20%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 43%)));
+	--wrong-color: hsl(var(--hue, 5),
+			var(--saturation, 80%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 63%)));
+	--wrong-location-color: hsl(var(--hue, 35),
+			var(--saturation, 84%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 73%)));
+	--right-color: hsl(var(--hue, 142),
+			var(--saturation, 76%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 68%)));
 	--background-color: hsl(252, 46%, 19%);
 }
 
@@ -45,6 +37,7 @@ body {
 }
 
 @media only screen and (max-width: 799px) {
+
 	html,
 	body {
 		height: 90vh;
@@ -93,6 +86,7 @@ a {
 	background-color: #ffffff2f;
 	border-radius: 4px;
 }
+
 .lightTextField input,
 .lightTextField label {
 	color: white !important;
@@ -128,6 +122,7 @@ a {
 	color: white !important;
 	border-radius: 20px !important;
 }
+
 .Tutorial-text {
 	font-weight: light;
 	margin: 0px 10% 0px 10%;
@@ -175,18 +170,16 @@ a {
 	align-items: center;
 	border-radius: 0.25em;
 	transition: 0.25s;
-	background-color: hsl(
-		var(--hue, 248),
-		var(--saturation, 20%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 43%))
-	);
+	background-color: hsl(var(--hue, 248),
+			var(--saturation, 20%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 43%)));
 	color: white;
 	fill: white;
 	user-select: none;
 	animation: appear 0.5s ease-in-out;
 }
 
-.key > svg {
+.key>svg {
 	width: 2em;
 	height: 2em;
 }
@@ -213,35 +206,31 @@ a {
 	--lightness: 50%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: hsl(
-		var(--hue, 5),
-		var(--saturation, 80%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
-	);
+	background-color: hsl(var(--hue, 5),
+			var(--saturation, 80%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 63%)));
 }
+
 .wrong-location {
 	/* --hue: 40;
 		--saturation: 90%;
 		--lightness: 50%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: hsl(
-		var(--hue, 35),
-		var(--saturation, 84%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 63%))
-	);
+	background-color: hsl(var(--hue, 35),
+			var(--saturation, 84%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 63%)));
 }
+
 .right {
 	/* --hue: 115;
 	--saturation: 90%;
 	--lightness: 35%; */
 	transition: 0.5s;
 	color: black !important;
-	background-color: hsl(
-		var(--hue, 142),
-		var(--saturation, 76%),
-		calc(var(--lightness-offset, 0%) + var(--lightness, 68%))
-	);
+	background-color: hsl(var(--hue, 142),
+			var(--saturation, 76%),
+			calc(var(--lightness-offset, 0%) + var(--lightness, 68%)));
 }
 
 @media only screen and (max-width: 799px) {
@@ -252,16 +241,19 @@ a {
 		gap: 0.5em;
 		justify-content: center;
 	}
+
 	.key:focus {
 		transition: 0.25s;
 		transform: translate(0px, -2px);
 		cursor: pointer;
 		--lightness: 60%;
 	}
+
 	.snackbar {
 		font-size: 2.5em !important;
 		font-family: 'Fredoka', sans-serif !important;
 	}
+
 	.key {
 		font-size: 2em;
 	}
@@ -298,11 +290,13 @@ a {
 	justify-content: center;
 	animation: appear 0.5s ease-in-out;
 }
+
 @media only screen and (max-width: 799px) {
 	.Gameboard {
 		grid-template-columns: repeat(5, 6em);
 		grid-template-rows: repeat(6, 6em);
 	}
+
 	.Gameboard-cell {
 		font-size: 4em;
 	}
@@ -350,12 +344,14 @@ a {
 	border: 1px solid hsl(142, 76%, 68%) !important;
 	font-size: small !important;
 }
+
 .btnNav:hover,
 .btnNav-win:hover,
 .btnNav-lose:hover {
 	background-color: var(--cell-background-color) !important;
 	border: 1px solid hsl(142, 76%, 68%) !important;
 }
+
 .btnNav {
 	margin-left: 50% !important;
 	transform: translateX(-50%) !important;
@@ -375,4 +371,10 @@ a {
 	.btnNav-lose {
 		width: 20% !important;
 	}
+}
+
+.wotd {
+	color: hsl(142, 76%, 68%);
+	/* black text outline */
+	text-shadow: 3px 3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, -3px -3px 0 #000;
 }
