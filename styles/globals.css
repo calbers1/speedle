@@ -313,7 +313,8 @@ a {
 
 .Win {
 	/* set background to hsl(252, 46%, 19%); but with 80% opacity */
-	background-color: hsla(252, 46%, 19%, 0.8);
+	opacity: 0.8;
+	background-color: hsl(252, 46%, 19%);
 	/* set text shadow to black 2px around letters */
 	text-shadow: 2px 2px 0 black, -2px 2px 0 black, 2px -2px 0 black, -2px -2px 0 black;
 
