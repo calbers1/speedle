@@ -45,7 +45,8 @@ export default function WinPage(props) {
 					sx={{ margin: "auto", textAlign: "center" }}
 				>
 					<Grid className="grid" item xs={12}>
-						<h1>WORD: <span className="wotd">{WOTD}</span></h1>
+						<h1 className="title">Word of the day:</h1>
+						<h1 className="wotd">{WOTD}</h1>
 					</Grid>
 					<Grid className="grid" item xs={12}>
 						{winMessage}
