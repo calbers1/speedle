@@ -27,7 +27,7 @@ export default function Leaderboard() {
 
 	return (
 		<div>
-			<h1 className="scoreLabel">Today&apos;s Scores</h1>
+			<h1 className="scoreLabel">Today&apos;s Winners</h1>
 			<TableContainer
 				component={Paper}
 				sx={{ minWidth: '80vw', maxWidth: '96vw', maxHeight: '60vh' }}
@@ -37,7 +37,7 @@ export default function Leaderboard() {
 						<TableRow>
 							<TableCell className="columnLabel">Username</TableCell>
 							<TableCell className="columnLabel" align="center">
-								Score
+								Guesses
 							</TableCell>
 							<TableCell className="columnLabel" align="center">
 								Streak
@@ -55,7 +55,7 @@ export default function Leaderboard() {
 										<b>{scoreIndex + 1}.</b> &nbsp; {score.userName}
 									</TableCell>
 									<TableCell className="scoreCell" align="center">
-										{score.score}
+										{score.x}
 									</TableCell>
 									<TableCell className="scoreCell" align="center">
 										{score.streak}

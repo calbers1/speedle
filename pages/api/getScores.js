@@ -5,11 +5,15 @@ const cleanResponse = (res) => {
 	for (let i = 0; i < res.length; i++) {
 		responseArray = [
 			...responseArray,
-			{ userName: res[i].userName, score: res[i].score, streak: res[i].streak },
+			{ userName: res[i].userName, score: res[i].score, streak: res[i].streak, x: res[i].x, },
 		]
 	}
 	responseArray.sort((a, b) => {
-		return b.score - a.score
+		//sort by x ascending and then by streak descending
+		if (a.x === b.x) {
+			return b.streak - a.streak
+		}
+		return a.x - b.x
 	})
 	return responseArray
 }
