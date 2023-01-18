@@ -116,7 +116,7 @@ a {
 	margin: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: var(--background-color) !important;
+	background-color: var(--background-color);
 	display: flex;
 	align-items: center;
 	color: white !important;
@@ -312,7 +312,11 @@ a {
 /* WIN PAGE */
 
 .Win {
-	opacity: 80%;
+	/* set background to hsl(252, 46%, 19%); but with 80% opacity */
+	background-color: hsla(252, 46%, 19%, 0.8);
+	/* set text shadow to black 2px around letters */
+	text-shadow: 2px 2px 0 black, -2px 2px 0 black, 2px -2px 0 black, -2px -2px 0 black;
+
 }
 
 /* Scores Page */
@@ -375,6 +379,4 @@ a {
 
 .wotd {
 	color: hsl(142, 76%, 68%);
-	/* black text outline */
-	text-shadow: 3px 3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, -3px -3px 0 #000;
 }
