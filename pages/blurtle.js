@@ -80,27 +80,24 @@ export default function Blurtle() {
 		const userString = {
 			userId: await window.localStorage.getItem('userString'),
 		}
-		console.log('userString: ', userString)
 		if (userString.userId !== null) {
-			console.log
 			const paramList = {
-				userID: userString,
+				userID: userString.userId,
 			}
 
 			const params = new URLSearchParams(paramList)
 
-			try {
+			try {//this is messy and I should clean it up. I'm not gonna, though.
 				const res = await (await fetch('/api/BypassLogIn?' + params)).json()
-				if (!res.error) {
+				if (res.error) {
 					window.localStorage.removeItem('userString')
 					router.push(`/`)
 				}
-			} catch (error) {
+			} catch (err) {
 				window.localStorage.removeItem('userString')
 				router.push(`/`)
 			}
 		} else {
-			console.log('no userString')
 			router.push(`/`)
 		}
 
