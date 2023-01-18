@@ -116,7 +116,7 @@ a {
 	margin: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: var(--background-color);
+	background-color: var(--background-color) !important;
 	display: flex;
 	align-items: center;
 	color: white !important;
