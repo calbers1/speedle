@@ -6,10 +6,9 @@ export default async function handler(req, res) {
 		return
 	}
 	const user = await BypassLogIn(req.query)
-	if (user === null) {
-		console.error("You've passed a bad user in.")
-		res.status(500).send('bad user!')
-		return 0
+	if (user.error) {
+		res.status(500).json({ error: 'bad user!' })
+		return { error: 'bad user!' }
 	}
 	res.status(200).json({ user })
 }

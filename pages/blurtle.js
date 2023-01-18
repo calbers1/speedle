@@ -80,9 +80,28 @@ export default function Blurtle() {
 		const userString = {
 			userId: await window.localStorage.getItem('userString'),
 		}
+		console.log('userString: ', userString)
+		if (userString.userId !== null) {
+			console.log
+			const paramList = {
+				userID: userString,
+			}
 
-		if (userString.userId === null || userString.userId === undefined) {
-			router.push('/')
+			const params = new URLSearchParams(paramList)
+
+			try {
+				const res = await (await fetch('/api/BypassLogIn?' + params)).json()
+				if (!res.error) {
+					window.localStorage.removeItem('userString')
+					router.push(`/`)
+				}
+			} catch (error) {
+				window.localStorage.removeItem('userString')
+				router.push(`/`)
+			}
+		} else {
+			console.log('no userString')
+			router.push(`/`)
 		}
 
 		const userData = await syncGameState(userString)

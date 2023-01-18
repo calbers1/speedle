@@ -22,9 +22,11 @@ export default function Home() {
 				const res = await (await fetch('/api/BypassLogIn?' + params)).json()
 				if (!res.error) {
 					router.push(`blurtle`)
+				} else {
+					window.localStorage.removeItem('userString')
 				}
-			} catch (err) {
-				console.error('ERROR: ', err)
+			} catch (error) {
+				window.localStorage.removeItem('userString')
 			}
 		}
 	}, [])
