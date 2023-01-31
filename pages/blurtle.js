@@ -87,7 +87,8 @@ export default function Blurtle() {
 
 			const params = new URLSearchParams(paramList)
 
-			try {//this is messy and I should clean it up. I'm not gonna, though.
+			try {
+				//this is messy and I should clean it up. I'm not gonna, though.
 				const res = await (await fetch('/api/BypassLogIn?' + params)).json()
 				if (res.error) {
 					window.localStorage.removeItem('userString')
@@ -123,7 +124,7 @@ export default function Blurtle() {
 			//set up the state
 			if (serverState.lastLogin !== serverState.date) {
 				newState.lastLogin = serverState.date
-				newState.cellArray = cellArray
+				newState.cellArray = EMPTY_CELLS
 				newState.classArray = EMPTY_CELLS
 				newState.x = 0
 			} else {
@@ -188,18 +189,19 @@ export default function Blurtle() {
 			if (newState.score > clientState.highScore) {
 				newState.highScore = newState.score
 			}
-			let endCellArray = EMPTY_CELLS
-			newState.cellArray = endCellArray
-			setCellArray(endCellArray)
+			// let endCellArray = EMPTY_CELLS
+			newState.cellArray = cellArray
+			// setCellArray(endCellArray)
 		} else if (clientState.x >= 5) {
-			let endCellArray = EMPTY_CELLS
-			newState.cellArray = endCellArray
+			// let endCellArray = EMPTY_CELLS
+			newState.cellArray = cellArray
 			newState.streak = 1
 			newState.score = 0
-			setCellArray(endCellArray)
+			// setCellArray(endCellArray)
 		} else {
 			newState.cellArray = cellArray
 		}
+		console.log(newState)
 		setClientState(await syncGameState(newState))
 		setY(0)
 	}

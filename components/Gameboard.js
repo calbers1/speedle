@@ -9,7 +9,7 @@ export default function Gameboard(props) {
 						key={`${Xindex}`}
 						className={`Gameboard-cell ${props.classArray[Xindex]}`}
 					>
-						{props.gameOver ? '' : x}
+						{x}
 					</div>
 				))
 			) : (
